@@ -1,0 +1,67 @@
+# Son of Anton — Dinesh Dev Container
+# Provides OS-level isolation for Claude Code sessions in Bypass Permissions Mode.
+#
+# Usage:
+#   Start:   docker compose up -d
+#   Attach:  docker compose exec dinesh-dev claude --dangerously-skip-permissions
+#   Stop:    docker compose down
+#
+# Prerequisites:
+#   - Docker Desktop must be running
+#   - Run `claude auth login` on first use inside the container
+
+services:
+  dinesh-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dinesh-dev
+
+    # Required for iptables network allowlist in entrypoint.sh
+    cap_add:
+      - NET_ADMIN
+
+    volumes:
+      # Project code: read-write so Dinesh can write and commit
+      - ../:/home/dinesh/workspace
+
+      # settings.json: read-only — container cannot tamper with its own security rules
+      - ../.claude/settings.json:/home/dinesh/.claude/settings.json:ro
+
+      # CLAUDE.md: read-only — container cannot modify behavioral guardrails
+      - ../CLAUDE.md:/home/dinesh/workspace/CLAUDE.md:ro
+
+      # Audit log export: persists audit logs to host on container stop
+      - ../.claude/audit:/home/dinesh/audit-export
+
+    # Bridge networking: container can reach approved domains (via iptables allowlist)
+    # but is isolated from other containers and the host network stack
+    network_mode: "bridge"
+
+    # Security hardening
+    security_opt:
+      - no-new-privileges:true   # Prevents sudo / setuid escalation inside container
+
+    # Read-only root filesystem — only explicitly listed paths are writable
+    read_only: true
+    tmpfs:
+      - /tmp:size=500m
+      - /home/dinesh/.npm:size=1g
+      - /home/dinesh/.cache:size=500m
+      - /home/dinesh/.local:size=500m
+      - /home/dinesh/.config:size=100m
+
+    # Resource caps — prevents runaway processes from consuming host resources
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+          cpus: "2.0"
+
+    # Grace period for audit log export on stop
+    stop_grace_period: 10s
+
+    # Keep container alive for exec
+    stdin_open: true
+    tty: true
+    command: /bin/bash

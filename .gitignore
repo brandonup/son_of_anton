@@ -1,0 +1,50 @@
+# Credentials — never commit these
+.env
+.env.*
+.env.local
+security/.env
+
+# Claude Code personal settings (project settings.json IS committed; local overrides are not)
+.claude/settings.local.json
+
+# Claude Code audit logs (generated per-session, reviewed then discarded)
+.claude/audit/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+dist/
+.pytest_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+*.tsbuildinfo
+dist/
+.next/
+
+# macOS
+.DS_Store
+
+# Docker
+docker-compose.override.yml
+
+# Codebases — belong in their own repos, not here
+projects/brain/
+projects/kinetic_5/
+projects/*/packages/
+projects/*/nbj_extractor/
+projects/*/supabase/
+projects/*/scripts/
+projects/*/tmp/
+
+# Ephemeral / local-only files
+TASKS.md
+projects/*/TASKS.md
+dashboard.html
+projects/*/dashboard.html
+*.txt
+parse_issues.py
