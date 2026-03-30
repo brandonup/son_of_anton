@@ -1,0 +1,529 @@
+{
+  "$schema": "daily-snapshot-v1",
+  "date": "2026-03-23",
+  "tickets": {
+    "completed": 60,
+    "started": 0,
+    "inReview": 0,
+    "blocked": 0,
+    "todo": 0,
+    "byAgent": {
+      "jared": {
+        "completed": 5,
+        "started": 0,
+        "inProgress": 0
+      },
+      "jian": {
+        "completed": 15,
+        "started": 0,
+        "inProgress": 0
+      },
+      "gilfoyle": {
+        "completed": 16,
+        "started": 0,
+        "inProgress": 0
+      },
+      "dinesh": {
+        "completed": 12,
+        "started": 0,
+        "inProgress": 0
+      },
+      "decision": {
+        "completed": 1,
+        "started": 0,
+        "inProgress": 0
+      },
+      "bighead": {
+        "completed": 8,
+        "started": 0,
+        "inProgress": 0
+      },
+      "bachman": {
+        "completed": 3,
+        "started": 0,
+        "inProgress": 0
+      }
+    },
+    "completedIssues": [
+      {
+        "id": "KIN-315",
+        "title": "Admin RAG Debug tab spec",
+        "agent": "jared",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-330",
+        "title": "Framework Library UI tests",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-332",
+        "title": "Architecture review — Admin RAG Debug tab",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-325",
+        "title": "MCP token management UI",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-328",
+        "title": "Active Memory + Linked Upload evals",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-327",
+        "title": "Code review — Sprint 5 Active Memory + Linked Upload",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-314",
+        "title": "Linked Upload test coverage",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-331",
+        "title": "Sprint 7 prep + spec gap audit",
+        "agent": "jared",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-302",
+        "title": "Framework expertise boost: trigger-count signal vs. category match",
+        "agent": "decision",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-309",
+        "title": "Active Memory UI — view, edit, delete, save-to-memory, proposal review",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-311",
+        "title": "Linked Upload — Agent Profile surface",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-320",
+        "title": "Framework Library — edit form + JSON upload",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-319",
+        "title": "Framework Library — browse, filter, delete",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-247",
+        "title": "Sprint 2 — Auth test coverage",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-334",
+        "title": "Active Memory UI component tests",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-317",
+        "title": "ADR — MCP server architecture + auth",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-313",
+        "title": "Active Memory test coverage",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-306",
+        "title": "Active Memory — periodic background proposals",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-310",
+        "title": "Linked Upload — User Profile + Company surfaces",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-307",
+        "title": "Active Memory — AI-proposed batch at conversation end",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-308",
+        "title": "Active Memory — token cap enforcement + entry structure",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-318",
+        "title": "Security audit — BYOK key storage + retrieval",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-312",
+        "title": "Review Linked Upload extraction flow + BYOK gating",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-276",
+        "title": "Generation endpoint + SSE streaming — POST /conversations/{id}/messages",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-275",
+        "title": "Context stack assembly — Layers 1–4 + 8 (project and company conversations)",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-260",
+        "title": "Framework selection eval — confidence threshold tuning",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-316",
+        "title": "Review Linked Upload spec (KIN-281)",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-300",
+        "title": "SSE stream sends done:true on assistant message persistence failure",
+        "agent": "bachman",
+        "estimate": 0,
+        "tier": "Fast"
+      },
+      {
+        "id": "KIN-278",
+        "title": "Sprint 3 — User Profile, Company, Project CRUD test coverage",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-274",
+        "title": "SSE proxy — Next.js server route injects JWT for streaming responses",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-273",
+        "title": "Model selector UI — per-query model selector in chat input",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-301",
+        "title": "Framework selection pipeline injects framework when Haiku returns 'none'",
+        "agent": "bachman",
+        "estimate": 0,
+        "tier": "Fast"
+      },
+      {
+        "id": "KIN-299",
+        "title": "JWT expiry not validated in auth.py — expired tokens accepted",
+        "agent": "bachman",
+        "estimate": 0,
+        "tier": "Fast"
+      },
+      {
+        "id": "KIN-305",
+        "title": "Review Active Memory background job design",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-281",
+        "title": "Linked Upload spec — all three surfaces (User Profile, Company, Agent)",
+        "agent": "jared",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-293",
+        "title": "Agent CRUD + invocation tests",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-292",
+        "title": "Conversation + generation engine tests",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-291",
+        "title": "Agent invocation UI",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-290",
+        "title": "Context stack — Agent layers (5–7 + 9)",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-289",
+        "title": "Framework selection pipeline",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-288",
+        "title": "AgentInstance — auto-create on first invocation",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-287",
+        "title": "AgentDefinition CRUD",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-285",
+        "title": "Code review: Sprint 3 generation engine",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-295",
+        "title": "Review Linked Upload spec (KIN-281)",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-294",
+        "title": "Review Framework Library spec (KIN-280)",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-304",
+        "title": "Spec discrepancy: mcp_tokens.token_hash — bcrypt (db-schema-spec) vs SHA-256 (mc",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-303",
+        "title": "Sprint 6 test scaffolding — MCP server, token management, rate limiting",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-298",
+        "title": "Sprint 5 test scaffolding — active memory, linked upload",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-284",
+        "title": "ADR: AgentDefinition/AgentInstance architecture + framework selection pipeline",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-297",
+        "title": "Sprint 4 test scaffolding — agents, framework selection, agent context layers",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-272",
+        "title": "Conversation CRUD + chat UI — sidebar, thread, soft-delete, rename",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-279",
+        "title": "Sprint 3 — Context stack + generation engine test coverage",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-277",
+        "title": "Conversation history compression — rolling summary background job",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-296",
+        "title": "Sprint 3 test scaffolding — conversations, context stack, generation, compressio",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-282",
+        "title": "Review Active Memory spec before Sprint 5 implementation",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-280",
+        "title": "Framework Library spec — browse, edit, delete, JSON upload merge behavior",
+        "agent": "jared",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-270",
+        "title": "ADR-004: Conversation history compression + updated_at trigger",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-269",
+        "title": "ADR-003: Context stack assembly + generation endpoint architecture",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-286",
+        "title": "MCP spec",
+        "agent": "jared",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-266",
+        "title": "ADR-002: RAG retrieval pipeline architecture",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      }
+    ]
+  },
+  "reviews": {
+    "totalReviews": 60,
+    "rejections": 0,
+    "rejectionRate": 0,
+    "byAgent": {
+      "jared": {
+        "reviews": 5,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "jian": {
+        "reviews": 15,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "gilfoyle": {
+        "reviews": 16,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "dinesh": {
+        "reviews": 12,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "decision": {
+        "reviews": 1,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "bighead": {
+        "reviews": 8,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "bachman": {
+        "reviews": 3,
+        "rejections": 0,
+        "rejectionRate": 0
+      }
+    }
+  },
+  "defects": {
+    "found": 3,
+    "fixed": 3,
+    "open": 0,
+    "byCategory": {},
+    "bySeverity": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    }
+  },
+  "cycleTime": {
+    "averageHours": 0,
+    "medianHours": 0,
+    "byAgent": {}
+  },
+  "notes": "60 tickets completed. Agents: {'jared': 5, 'jian': 15, 'gilfoyle': 16, 'dinesh': 12, 'decision': 1, 'bighead': 8, 'bachman': 3}"
+}

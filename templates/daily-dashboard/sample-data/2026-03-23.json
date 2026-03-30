@@ -1,0 +1,50 @@
+{
+  "$schema": "daily-snapshot-v1",
+  "date": "2026-03-23",
+  "tickets": {
+    "completed": 5,
+    "started": 2,
+    "inReview": 1,
+    "blocked": 0,
+    "todo": 4,
+    "byAgent": {
+      "dinesh":  { "completed": 3, "started": 1, "inProgress": 1 },
+      "bighead": { "completed": 2, "started": 1, "inProgress": 1 }
+    },
+    "completedIssues": [
+      { "id": "KIN-310", "title": "Implement framework retrieval API", "agent": "dinesh", "estimate": 2, "tier": "Standard" },
+      { "id": "KIN-311", "title": "Fix active memory ACL leak", "agent": "dinesh", "estimate": 1, "tier": "Fast" },
+      { "id": "KIN-312", "title": "Add workspace invitation flow", "agent": "dinesh", "estimate": 2, "tier": "Standard" },
+      { "id": "KIN-313", "title": "Implement custom agent pipeline", "agent": "bighead", "estimate": 3, "tier": "Complex" },
+      { "id": "KIN-314", "title": "Fix synthesis RLS scoping", "agent": "bighead", "estimate": 1, "tier": "Fast" }
+    ]
+  },
+  "reviews": {
+    "totalReviews": 6,
+    "rejections": 1,
+    "rejectionRate": 16.7,
+    "byAgent": {
+      "dinesh":  { "reviews": 4, "rejections": 0, "rejectionRate": 0 },
+      "bighead": { "reviews": 2, "rejections": 1, "rejectionRate": 50 }
+    }
+  },
+  "defects": {
+    "found": 2,
+    "fixed": 5,
+    "open": 6,
+    "byCategory": {
+      "spec-gap": 1,
+      "test-missing": 1
+    },
+    "bySeverity": { "critical": 0, "important": 1, "minor": 1 }
+  },
+  "cycleTime": {
+    "averageHours": 12.8,
+    "medianHours": 10.0,
+    "byAgent": {
+      "dinesh":  { "averageHours": 10.5, "ticketCount": 3 },
+      "bighead": { "averageHours": 16.0, "ticketCount": 2 }
+    }
+  },
+  "notes": "Strong recovery — 5 completions, rejection rate down to 17%. Defect burn-down working: fixed 5, only found 2. Custom agent pipeline shipped."
+}

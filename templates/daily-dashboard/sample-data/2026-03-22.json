@@ -1,0 +1,49 @@
+{
+  "$schema": "daily-snapshot-v1",
+  "date": "2026-03-22",
+  "tickets": {
+    "completed": 2,
+    "started": 3,
+    "inReview": 3,
+    "blocked": 1,
+    "todo": 5,
+    "byAgent": {
+      "dinesh":  { "completed": 1, "started": 2, "inProgress": 2 },
+      "bighead": { "completed": 1, "started": 1, "inProgress": 1 }
+    },
+    "completedIssues": [
+      { "id": "KIN-308", "title": "Implement active memory CRUD routes", "agent": "dinesh", "estimate": 2, "tier": "Standard" },
+      { "id": "KIN-309", "title": "Add transcript processing — speaker diarization", "agent": "bighead", "estimate": 2, "tier": "Standard" }
+    ]
+  },
+  "reviews": {
+    "totalReviews": 3,
+    "rejections": 2,
+    "rejectionRate": 66.7,
+    "byAgent": {
+      "dinesh":  { "reviews": 2, "rejections": 1, "rejectionRate": 50 },
+      "bighead": { "reviews": 1, "rejections": 1, "rejectionRate": 100 }
+    }
+  },
+  "defects": {
+    "found": 5,
+    "fixed": 1,
+    "open": 9,
+    "byCategory": {
+      "schema-mismatch": 2,
+      "api-contract": 1,
+      "error-swallow": 1,
+      "acl-leak": 1
+    },
+    "bySeverity": { "critical": 2, "important": 2, "minor": 1 }
+  },
+  "cycleTime": {
+    "averageHours": 22.0,
+    "medianHours": 20.0,
+    "byAgent": {
+      "dinesh":  { "averageHours": 20.0, "ticketCount": 1 },
+      "bighead": { "averageHours": 24.0, "ticketCount": 1 }
+    }
+  },
+  "notes": "Rough day — rejection rate spiked to 67%. Schema-mismatch continues to be the top category. ACL leak found in active memory routes."
+}

@@ -1,0 +1,68 @@
+{
+  "$schema": "sprint-snapshot-v1",
+  "sprint": {
+    "number": 2,
+    "name": "Sprint 2",
+    "startDate": "2026-01-20",
+    "endDate": "2026-01-31"
+  },
+  "velocity": {
+    "planned": 22,
+    "completed": 19,
+    "carryover": 3,
+    "totalPoints": 44,
+    "completedPoints": 38
+  },
+  "estimates": {
+    "coveragePercent": 55,
+    "byAgent": {
+      "alice": { "total": 11, "estimated": 7, "coveragePercent": 64 },
+      "bob":   { "total": 9,  "estimated": 5, "coveragePercent": 56 },
+      "carol": { "total": 7,  "estimated": 3, "coveragePercent": 43 }
+    }
+  },
+  "cycleTime": {
+    "averageDays": 2.2,
+    "medianDays": 2.0,
+    "p90Days": 4.2,
+    "byAgent": {
+      "alice": { "averageDays": 1.9, "ticketCount": 11 },
+      "bob":   { "averageDays": 2.6, "ticketCount": 9 }
+    }
+  },
+  "reviews": {
+    "totalReviews": 20,
+    "rejections": 7,
+    "rejectionRate": 35,
+    "byAgent": {
+      "alice": { "reviews": 11, "rejections": 3, "rejectionRate": 27, "maxRounds": 2 },
+      "bob":   { "reviews": 9,  "rejections": 4, "rejectionRate": 44, "maxRounds": 3 }
+    }
+  },
+  "defects": {
+    "total": 28,
+    "byCategory": {
+      "acl-leak":        2,
+      "error-swallow":   6,
+      "api-contract":    5,
+      "spec-gap":        4,
+      "schema-mismatch": 3,
+      "rls-bypass":      1,
+      "async-supabase":  2,
+      "test-missing":    2,
+      "other":           3
+    },
+    "bySeverity": { "critical": 10, "important": 15, "minor": 3 },
+    "defectsPerTicket": 1.7
+  },
+  "agentActivity": {
+    "alice": { "completed": 11, "wipPeak": 2 },
+    "bob":   { "completed": 9,  "wipPeak": 3 },
+    "carol": { "completed": 6,  "wipPeak": 1 }
+  },
+  "processHealth": {
+    "decisionTicketLagHours": 3.2,
+    "handoffCompliancePercent": 75
+  },
+  "notes": "Meaningful improvement: rejection rate down to 35%, defect density down to 1.7. Estimate coverage jumped to 55%. Error-swallow still top category — convention added but not yet enforced."
+}

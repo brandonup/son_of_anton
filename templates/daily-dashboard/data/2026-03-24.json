@@ -1,0 +1,316 @@
+{
+  "$schema": "daily-snapshot-v1",
+  "date": "2026-03-24",
+  "tickets": {
+    "completed": 31,
+    "started": 0,
+    "inReview": 0,
+    "blocked": 0,
+    "todo": 0,
+    "byAgent": {
+      "gilfoyle": {
+        "completed": 3,
+        "started": 0,
+        "inProgress": 0
+      },
+      "dinesh": {
+        "completed": 10,
+        "started": 0,
+        "inProgress": 0
+      },
+      "jian": {
+        "completed": 5,
+        "started": 0,
+        "inProgress": 0
+      },
+      "jared": {
+        "completed": 2,
+        "started": 0,
+        "inProgress": 0
+      },
+      "bighead": {
+        "completed": 10,
+        "started": 0,
+        "inProgress": 0
+      },
+      "decision": {
+        "completed": 1,
+        "started": 0,
+        "inProgress": 0
+      }
+    },
+    "completedIssues": [
+      {
+        "id": "KIN-360",
+        "title": "Review consolidated database migration (000_complete_schema.sql)",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-333",
+        "title": "Security audit — background job BYOK key routing",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-339",
+        "title": "Final security audit + performance review + Sprint 6 code review",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-359",
+        "title": "Fix linked upload company extraction — strip taglines and preamble from name",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Fast"
+      },
+      {
+        "id": "KIN-358",
+        "title": "Fix linked upload profile extraction — null-return when no individual author",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Fast"
+      },
+      {
+        "id": "KIN-348",
+        "title": "Eval suite finalization — framework selection, active memory, linked upload, RAG",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-341",
+        "title": "MVP launch checklist",
+        "agent": "jared",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-349",
+        "title": "Security test coverage — BYOK, MCP, admin routes, token revocation",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-347",
+        "title": "E2E integration tests — full user journey",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-335",
+        "title": "KB UI — folders, tags, document status display (parent)",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-337",
+        "title": "Chat UI polish — model selector greyed states + agent switch markers + citations",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-353",
+        "title": "Author Nate B. Jones agent system prompt",
+        "agent": "jared",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-357",
+        "title": "Enrich 112 stepless frameworks with steps or scaffold content",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-354",
+        "title": "Rewrite triggers for 6 severe collision pairs",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-352",
+        "title": "Generate nate_would_say + guidance for 184 curated frameworks",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-351",
+        "title": "Add user-language trigger phrases to 184 curated frameworks",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-345",
+        "title": "KB organization — folders + tags UI",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-342",
+        "title": "linked_upload.py — add ownership check for company_id and agent_id path params",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Fast"
+      },
+      {
+        "id": "KIN-346",
+        "title": "Document status display + retry button",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-350",
+        "title": "Define user problem space for framework library curation",
+        "agent": "decision",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-344",
+        "title": "conversations.py — verify conversation ownership before dispatching end_conversa",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Fast"
+      },
+      {
+        "id": "KIN-343",
+        "title": "linked_upload.py — move extraction prompts to prompts module",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Fast"
+      },
+      {
+        "id": "KIN-338",
+        "title": "Background job hardening — retry, dedup, failure logging",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-336",
+        "title": "Document ingestion retry UX + AI auto-suggest tags",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-340",
+        "title": "End-to-end integration tests + eval suite finalization",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-329",
+        "title": "MCP server tests",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-322",
+        "title": "MCP server — RAG pipeline (L8, L9) + framework selection (L7)",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-324",
+        "title": "MCP access control",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-323",
+        "title": "MCP rate limiting",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-321",
+        "title": "MCP server — endpoint, auth, scope routing + context assembly (L1–L5)",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-326",
+        "title": "Admin RAG Debug tab",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      }
+    ]
+  },
+  "reviews": {
+    "totalReviews": 31,
+    "rejections": 0,
+    "rejectionRate": 0,
+    "byAgent": {
+      "gilfoyle": {
+        "reviews": 3,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "dinesh": {
+        "reviews": 10,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "jian": {
+        "reviews": 5,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "jared": {
+        "reviews": 2,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "bighead": {
+        "reviews": 10,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "decision": {
+        "reviews": 1,
+        "rejections": 0,
+        "rejectionRate": 0
+      }
+    }
+  },
+  "defects": {
+    "found": 5,
+    "fixed": 5,
+    "open": 0,
+    "byCategory": {},
+    "bySeverity": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    }
+  },
+  "cycleTime": {
+    "averageHours": 0,
+    "medianHours": 0,
+    "byAgent": {}
+  },
+  "notes": "31 tickets completed. Agents: {'gilfoyle': 3, 'dinesh': 10, 'jian': 5, 'jared': 2, 'bighead': 10, 'decision': 1}"
+}

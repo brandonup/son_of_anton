@@ -1,0 +1,159 @@
+{
+  "$schema": "daily-snapshot-v1",
+  "date": "2026-03-18",
+  "tickets": {
+    "completed": 10,
+    "started": 0,
+    "inReview": 0,
+    "blocked": 0,
+    "todo": 0,
+    "byAgent": {
+      "dinesh": {
+        "completed": 4,
+        "started": 0,
+        "inProgress": 0
+      },
+      "gilfoyle": {
+        "completed": 2,
+        "started": 0,
+        "inProgress": 0
+      },
+      "decision": {
+        "completed": 1,
+        "started": 0,
+        "inProgress": 0
+      },
+      "bighead": {
+        "completed": 1,
+        "started": 0,
+        "inProgress": 0
+      },
+      "jian": {
+        "completed": 2,
+        "started": 0,
+        "inProgress": 0
+      }
+    },
+    "completedIssues": [
+      {
+        "id": "KIN-112",
+        "title": "Task 15 — Minimum viable Dashboard (Quick Ask, Integration Health, Briefs widget",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-159",
+        "title": "Add Slack channel selection to onboarding Step 1 (StepSlackOAuth)",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-113",
+        "title": "Task 16 — Integration smoke test (end-to-end Copilot query flow)",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-189",
+        "title": "Implement thought capture pipeline (W4)",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-191",
+        "title": "Spike — Frontend test infrastructure (Jest/Vitest + RTL for packages/app)",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-188",
+        "title": "Thought capture rate limiting — add counter_type to query_rate_counters?",
+        "agent": "decision",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-178",
+        "title": "Custom agents — Part A: NL config creation + agent management",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-190",
+        "title": "Test scaffolding — W10-11 surfaces (Push Summaries, Notification Prefs, Dashboar",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-185",
+        "title": "Spec Data Trust page, Usage Metrics, and Value & Impact Reporting (W12 Dinesh)",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-187",
+        "title": "Test plan + scaffolding — Thought Capture (KIN-182)",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      }
+    ]
+  },
+  "reviews": {
+    "totalReviews": 10,
+    "rejections": 0,
+    "rejectionRate": 0,
+    "byAgent": {
+      "dinesh": {
+        "reviews": 4,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "gilfoyle": {
+        "reviews": 2,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "decision": {
+        "reviews": 1,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "bighead": {
+        "reviews": 1,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "jian": {
+        "reviews": 2,
+        "rejections": 0,
+        "rejectionRate": 0
+      }
+    }
+  },
+  "defects": {
+    "found": 0,
+    "fixed": 0,
+    "open": 0,
+    "byCategory": {},
+    "bySeverity": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    }
+  },
+  "cycleTime": {
+    "averageHours": 0,
+    "medianHours": 0,
+    "byAgent": {}
+  },
+  "notes": "10 tickets completed. Agents: {'dinesh': 4, 'gilfoyle': 2, 'decision': 1, 'bighead': 1, 'jian': 2}"
+}

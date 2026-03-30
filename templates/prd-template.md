@@ -34,6 +34,31 @@ How do we know this worked? Be specific and measurable. At minimum: one leading 
 
 **Out of scope:** What we're explicitly not doing and why. Being explicit here prevents scope creep.
 
+## Surface Inventory
+
+Enumerate every concrete artifact this feature requires. Walk each user story end-to-end and list every surface the user touches or the system needs. If a category has zero items, write "None" — do not omit the category.
+
+- **Pages / Views:** [every UI screen, including list pages, detail pages, empty states, settings panels]
+- **API Endpoints:** [every route — method, path, purpose]
+- **Database Tables:** [every new or modified table — see Data Requirements below]
+- **Background Jobs / Cron:** [any async processing, scheduled tasks, webhooks]
+- **Integrations:** [any third-party services, OAuth flows, external APIs]
+
+Cross-check: every item in this inventory must map to at least one user story above. Every user story must be reachable through the items listed here. If there's a mismatch, the spec is incomplete.
+
+## Data Requirements
+
+What does this feature need to persist? Answer in plain English — no DDL. Use exact table and column names from `db-schema-spec.md` when referencing existing tables.
+
+- **New tables:** [table name] — what it stores, who can read/write (RLS policy intent)
+- **Modified tables:** [table name] — what columns or indexes are added or changed
+- **Access patterns:** [who queries what, under what conditions]
+- **None** — this feature requires no new or modified tables (confirm explicitly)
+
+If new tables or columns are needed, note: "Update `db-schema-spec.md §X`"
+
+---
+
 ## Dependencies
 
 What needs to exist before this can be built? List blockers by type:

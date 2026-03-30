@@ -1,0 +1,68 @@
+{
+  "$schema": "sprint-snapshot-v1",
+  "sprint": {
+    "number": 1,
+    "name": "Sprint 1",
+    "startDate": "2026-01-06",
+    "endDate": "2026-01-17"
+  },
+  "velocity": {
+    "planned": 20,
+    "completed": 16,
+    "carryover": 4,
+    "totalPoints": 38,
+    "completedPoints": 28
+  },
+  "estimates": {
+    "coveragePercent": 30,
+    "byAgent": {
+      "alice": { "total": 10, "estimated": 4, "coveragePercent": 40 },
+      "bob":   { "total": 8,  "estimated": 2, "coveragePercent": 25 },
+      "carol": { "total": 6,  "estimated": 2, "coveragePercent": 33 }
+    }
+  },
+  "cycleTime": {
+    "averageDays": 2.8,
+    "medianDays": 2.5,
+    "p90Days": 5.1,
+    "byAgent": {
+      "alice": { "averageDays": 2.4, "ticketCount": 10 },
+      "bob":   { "averageDays": 3.2, "ticketCount": 8 }
+    }
+  },
+  "reviews": {
+    "totalReviews": 18,
+    "rejections": 8,
+    "rejectionRate": 44.4,
+    "byAgent": {
+      "alice": { "reviews": 10, "rejections": 4, "rejectionRate": 40, "maxRounds": 3 },
+      "bob":   { "reviews": 8,  "rejections": 4, "rejectionRate": 50, "maxRounds": 3 }
+    }
+  },
+  "defects": {
+    "total": 34,
+    "byCategory": {
+      "acl-leak":        3,
+      "error-swallow":   8,
+      "api-contract":    6,
+      "spec-gap":        5,
+      "schema-mismatch": 4,
+      "rls-bypass":      2,
+      "async-supabase":  3,
+      "test-missing":    1,
+      "other":           2
+    },
+    "bySeverity": { "critical": 14, "important": 17, "minor": 3 },
+    "defectsPerTicket": 2.1
+  },
+  "agentActivity": {
+    "alice": { "completed": 10, "wipPeak": 3 },
+    "bob":   { "completed": 8,  "wipPeak": 4 },
+    "carol": { "completed": 4,  "wipPeak": 1 }
+  },
+  "processHealth": {
+    "decisionTicketLagHours": 6.5,
+    "handoffCompliancePercent": 60
+  },
+  "notes": "Rough start — high rejection rate (44%) and 4 carryovers. Error-swallow is the dominant defect category. WIP discipline needs work: Bob hit 4 concurrent tickets."
+}

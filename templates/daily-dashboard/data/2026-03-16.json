@@ -1,0 +1,255 @@
+{
+  "$schema": "daily-snapshot-v1",
+  "date": "2026-03-16",
+  "tickets": {
+    "completed": 28,
+    "started": 0,
+    "inReview": 0,
+    "blocked": 0,
+    "todo": 0,
+    "byAgent": {
+      "dinesh": {
+        "completed": 26,
+        "started": 0,
+        "inProgress": 0
+      },
+      "gilfoyle": {
+        "completed": 2,
+        "started": 0,
+        "inProgress": 0
+      }
+    },
+    "completedIssues": [
+      {
+        "id": "KIN-37",
+        "title": "Task 2: Embedding abstraction layer",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-41",
+        "title": "Task 6: ACL resolver",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-42",
+        "title": "Task 7: Contextual Retrieval prefix generator",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-44",
+        "title": "Task 9: Slack ingestion pipeline",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-47",
+        "title": "Task 12: Integration smoke test",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-46",
+        "title": "Task 11: Polling scheduler",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-40",
+        "title": "Task 5: Drive section-level chunker",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-39",
+        "title": "Task 4: Slack thread-level chunker",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-45",
+        "title": "Task 10: Drive ingestion pipeline + circuit breaker",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-38",
+        "title": "Task 3: Recursive fallback chunker",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-43",
+        "title": "Task 8: ChunkRepository DB client wrapper",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-36",
+        "title": "Task 1: Pydantic models and config",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-55",
+        "title": "Task 1: Extend Config and Models",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-56",
+        "title": "Task 2: Gmail Chunker",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-57",
+        "title": "Task 3: Gmail ACL Resolver",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-58",
+        "title": "Task 4: Gmail Ingestion Pipeline",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-59",
+        "title": "Task 5: Calendar Chunker + ACL Resolver",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-60",
+        "title": "Task 6: Calendar Ingestion Pipeline",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-61",
+        "title": "Task 7: GitHub Chunker",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-62",
+        "title": "Task 8: GitHub Ingestion Pipeline",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-63",
+        "title": "Task 9: Permission-Scoped Retrieval",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-64",
+        "title": "Task 10: Register Pipelines in Scheduler",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-94",
+        "title": "Add structured logging to ingestion + Copilot",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-90",
+        "title": "Spec integration test strategy — markers, first targets, CI config",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-88",
+        "title": "Spec Copilot eval framework — runner, scoring, storage",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-93",
+        "title": "Refactor inline prompts to versioned prompts module",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-76",
+        "title": "Task 8: Company Brief Pydantic Models",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-73",
+        "title": "Task 5: Context Manifest Logger",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      }
+    ]
+  },
+  "reviews": {
+    "totalReviews": 28,
+    "rejections": 0,
+    "rejectionRate": 0,
+    "byAgent": {
+      "dinesh": {
+        "reviews": 26,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "gilfoyle": {
+        "reviews": 2,
+        "rejections": 0,
+        "rejectionRate": 0
+      }
+    }
+  },
+  "defects": {
+    "found": 0,
+    "fixed": 0,
+    "open": 0,
+    "byCategory": {},
+    "bySeverity": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    }
+  },
+  "cycleTime": {
+    "averageHours": 0,
+    "medianHours": 0,
+    "byAgent": {}
+  },
+  "notes": "28 tickets completed. Agents: {'dinesh': 26, 'gilfoyle': 2}"
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "daily-snapshot-v1",
+  "date": "2026-03-24",
+  "tickets": {
+    "completed": 3,
+    "started": 3,
+    "inReview": 2,
+    "blocked": 0,
+    "todo": 5,
+    "byAgent": {
+      "dinesh":  { "completed": 2, "started": 1, "inProgress": 2 },
+      "bighead": { "completed": 1, "started": 2, "inProgress": 1 }
+    },
+    "completedIssues": [
+      { "id": "KIN-315", "title": "Implement BYOK model routing", "agent": "dinesh", "estimate": 2, "tier": "Standard" },
+      { "id": "KIN-316", "title": "Add agent selector component", "agent": "dinesh", "estimate": 1, "tier": "Fast" },
+      { "id": "KIN-317", "title": "Implement commitment tracking cron job", "agent": "bighead", "estimate": 2, "tier": "Standard" }
+    ]
+  },
+  "reviews": {
+    "totalReviews": 4,
+    "rejections": 1,
+    "rejectionRate": 25.0,
+    "byAgent": {
+      "dinesh":  { "reviews": 3, "rejections": 1, "rejectionRate": 33.3 },
+      "bighead": { "reviews": 1, "rejections": 0, "rejectionRate": 0 }
+    }
+  },
+  "defects": {
+    "found": 3,
+    "fixed": 3,
+    "open": 6,
+    "byCategory": {
+      "api-contract": 1,
+      "async-supabase": 1,
+      "error-swallow": 1
+    },
+    "bySeverity": { "critical": 1, "important": 1, "minor": 1 }
+  },
+  "cycleTime": {
+    "averageHours": 14.0,
+    "medianHours": 12.0,
+    "byAgent": {
+      "dinesh":  { "averageHours": 11.0, "ticketCount": 2 },
+      "bighead": { "averageHours": 20.0, "ticketCount": 1 }
+    }
+  },
+  "notes": "Steady day. Defect burn held flat (3 found, 3 fixed). BYOK routing shipped — key enabler for chat generation."
+}

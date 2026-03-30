@@ -1,0 +1,27 @@
+
+=== 2026-03-23 13:34:03 — Big Head waking ===
+Failed to authenticate. API Error: 401 {"type":"error","error":{"type":"authentication_error","message":"OAuth token has expired. Please obtain a new token or refresh your existing token."},"request_id":"req_011CZLegoV1EFo8yPzyqWQvq"}
+=== 2026-03-23 13:34:09 — Big Head sleeping 15min ===
+
+=== 2026-03-23 13:47:23 — Big Head waking ===
+
+=== 2026-03-23 13:55:50 — Big Head waking ===
+APPROVED. Run the commit script now, Brandon:
+
+```
+bash packages/api/commit_kin321.sh
+```
+
+**KIN-321 complete.** Here's what shipped:
+
+- `app/api/routes/mcp.py` — `POST /api/v1/mcp/context` with:
+  - SHA-256 bearer token auth (ADR-006 §1)
+  - Per-user daily rate limiting via `mcp_rate_limits` (ADR-006 §3)
+  - Ownership ACL on projects/companies (user_id filter); visibility check on agents
+  - Scope routing → 7 combinations, L1–L5 assembly, L4 always omitted
+- `app/main.py` — `mcp_router` registered
+- `tests/test_mcp.py` — 37 tests (32 original + 2 rate limit + 3 ACL)
+- **280 passing, 0 regressions**
+=== 2026-03-23 14:12:41 — Big Head sleeping 15min ===
+
+=== 2026-03-23 14:27:41 — Big Head waking ===

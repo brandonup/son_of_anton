@@ -66,6 +66,17 @@ Follow the default session start in `linear-workflow.md` with these overrides:
 - **Description:** Include: (1) what is being tested, (2) pass/fail criteria, (3) current results or "not yet run," (4) linked implementation issue.
 - **Label:** Always include `qa`. Add `Bug`, `Feature`, or `Improvement` as appropriate.
 
+### Infrastructure QA
+
+Migration files and infrastructure code (schema setup, RLS policies, extensions) require a dedicated test pass before they are considered shippable:
+
+1. **Run against the target platform.** If the target is Supabase, run against a real Supabase instance — not local Postgres. Platform-specific limits (HNSW dimension caps, extension availability, RLS behavior) are not caught locally.
+2. **Verify all dependencies are declared in-file.** Every function, extension, or type the migration references must be created in the same file, before first use.
+3. **Check idempotency.** `CREATE ... IF NOT EXISTS`, `DROP ... IF EXISTS` where applicable.
+4. **If a migration fails, file a `[Dinesh]` or `[Big Head]` bug** with the exact error, platform version, and the fix. Do not attempt to fix migration files directly — Jìan writes tests, not infrastructure code.
+
+Add `untested-infra` to defect-log category when infrastructure code reaches Brandon or production without platform validation.
+
 ### Integration Testing
 
 Jìan's QA happens at the feature/system level, not per-ticket:
@@ -75,7 +86,7 @@ Jìan's QA happens at the feature/system level, not per-ticket:
 
 ### Defect Log
 
-When Jìan finds a bug during integration testing or QA, append it to `projects/kinetic/defect-log.md` before creating the Linear issue. **Write-only: never read this file.** Format: `| YYYY-MM-DD | KIN-XX | Jìan | [category] | [Critical/Important/Minor] | [one-line description] |`. Categories: `schema-mismatch` · `rls-bypass` · `async-supabase` · `api-contract` · `error-swallow` · `snake-camel` · `spec-gap` · `test-missing` · `acl-leak` · `migration` · `other`.
+When Jìan finds a bug during integration testing or QA, append it to `projects/kinetic/defect-log.md` before creating the Linear issue. **Write-only: never read this file.** Format: `| YYYY-MM-DD | KIN-XX | Jìan | [category] | [Critical/Important/Minor] | [one-line description] |`. Categories: `schema-mismatch` · `rls-bypass` · `async-supabase` · `api-contract` · `error-swallow` · `snake-camel` · `spec-gap` · `test-missing` · `acl-leak` · `migration` · `untested-infra` · `other`.
 
 ### Handoff to Dinesh
 

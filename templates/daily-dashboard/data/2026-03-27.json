@@ -1,0 +1,94 @@
+{
+  "$schema": "daily-snapshot-v1",
+  "date": "2026-03-27",
+  "tickets": {
+    "completed": 5,
+    "started": 0,
+    "inReview": 0,
+    "blocked": 0,
+    "todo": 0,
+    "byAgent": {
+      "bighead": {
+        "completed": 2,
+        "started": 0,
+        "inProgress": 0
+      },
+      "dinesh": {
+        "completed": 3,
+        "started": 0,
+        "inProgress": 0
+      }
+    },
+    "completedIssues": [
+      {
+        "id": "KIN-400",
+        "title": "Fix OpenAI key decryption failing silently with no error message",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Fast"
+      },
+      {
+        "id": "KIN-401",
+        "title": "Fix admin page inaccessible",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Fast"
+      },
+      {
+        "id": "KIN-399",
+        "title": "Fix active-memory endpoint called with wrong param (agent_id instead of project_",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Fast"
+      },
+      {
+        "id": "KIN-398",
+        "title": "Fix get_document_status 500 when document is deleted or missing",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Fast"
+      },
+      {
+        "id": "KIN-392",
+        "title": "Implement rolling summary compression for long conversations",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      }
+    ]
+  },
+  "reviews": {
+    "totalReviews": 5,
+    "rejections": 0,
+    "rejectionRate": 0,
+    "byAgent": {
+      "bighead": {
+        "reviews": 2,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "dinesh": {
+        "reviews": 3,
+        "rejections": 0,
+        "rejectionRate": 0
+      }
+    }
+  },
+  "defects": {
+    "found": 4,
+    "fixed": 4,
+    "open": 0,
+    "byCategory": {},
+    "bySeverity": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    }
+  },
+  "cycleTime": {
+    "averageHours": 0,
+    "medianHours": 0,
+    "byAgent": {}
+  },
+  "notes": "5 tickets completed. Agents: {'bighead': 2, 'dinesh': 3}"
+}

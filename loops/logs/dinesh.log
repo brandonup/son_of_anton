@@ -1,0 +1,30 @@
+
+=== 2026-03-23 13:34:03 — Dinesh waking ===
+Failed to authenticate. API Error: 401 {"type":"error","error":{"type":"authentication_error","message":"OAuth token has expired. Please obtain a new token or refresh your existing token."},"request_id":"req_011CZLegkebYcAdSCEuGLbPP"}
+=== 2026-03-23 13:34:08 — Dinesh sleeping 15min ===
+
+=== 2026-03-23 13:47:22 — Dinesh waking ===
+
+=== 2026-03-23 13:55:50 — Dinesh waking ===
+**KIN-325 done.** Here's the summary for Brandon:
+
+---
+
+**KIN-325 — MCP Token Management** ✅ Approved by Gilfoyle
+
+**Backend (`packages/api`):**
+- `app/api/routes/mcp_tokens.py` — `POST/GET/PATCH /api/v1/mcp/tokens`, SHA-256 hashing, `run_in_executor` on all DB calls, all writes scoped by `user_id`
+- `app/core/errors.py` — added `ConflictError` (409)
+- `app/main.py` — router registered
+- `tests/test_mcp_tokens.py` — **19/19 passing**
+
+**Frontend (`packages/web`):**
+- `components/ui/dialog.tsx` — new Radix UI Dialog component
+- `lib/types/models.ts` — `McpToken`, `McpTokenListResponse`, `CreateMcpTokenResponse`
+- `app/(app)/profile/page.tsx` — MCP Tokens section: generate form, one-time modal with copy, masked list (`mcp_••••••••`), revoke confirm dialog
+- `app/__tests__/components/McpTokensSection.test.tsx` — **11/11 passing**
+
+**Commit script ready:** `bash /private/tmp/claude-501/commit_kin325.sh`
+=== 2026-03-23 14:08:44 — Dinesh sleeping 15min ===
+
+=== 2026-03-23 14:23:45 — Dinesh waking ===

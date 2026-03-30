@@ -1,0 +1,50 @@
+{
+  "$schema": "daily-snapshot-v1",
+  "date": "2026-03-21",
+  "tickets": {
+    "completed": 4,
+    "started": 2,
+    "inReview": 1,
+    "blocked": 0,
+    "todo": 6,
+    "byAgent": {
+      "dinesh":  { "completed": 2, "started": 1, "inProgress": 1 },
+      "bighead": { "completed": 2, "started": 1, "inProgress": 2 }
+    },
+    "completedIssues": [
+      { "id": "KIN-304", "title": "Implement project CRUD endpoints", "agent": "dinesh", "estimate": 2, "tier": "Standard" },
+      { "id": "KIN-305", "title": "Add agent instance creation flow", "agent": "dinesh", "estimate": 2, "tier": "Standard" },
+      { "id": "KIN-306", "title": "Implement synthesis pipeline — base flow", "agent": "bighead", "estimate": 3, "tier": "Complex" },
+      { "id": "KIN-307", "title": "Add commitment extraction background job", "agent": "bighead", "estimate": 2, "tier": "Standard" }
+    ]
+  },
+  "reviews": {
+    "totalReviews": 5,
+    "rejections": 1,
+    "rejectionRate": 20.0,
+    "byAgent": {
+      "dinesh":  { "reviews": 3, "rejections": 0, "rejectionRate": 0 },
+      "bighead": { "reviews": 2, "rejections": 1, "rejectionRate": 50 }
+    }
+  },
+  "defects": {
+    "found": 3,
+    "fixed": 4,
+    "open": 5,
+    "byCategory": {
+      "async-supabase": 1,
+      "error-swallow": 1,
+      "rls-bypass": 1
+    },
+    "bySeverity": { "critical": 1, "important": 1, "minor": 1 }
+  },
+  "cycleTime": {
+    "averageHours": 15.2,
+    "medianHours": 12.0,
+    "byAgent": {
+      "dinesh":  { "averageHours": 12.5, "ticketCount": 2 },
+      "bighead": { "averageHours": 18.0, "ticketCount": 2 }
+    }
+  },
+  "notes": "Big Head hit 2 completions — sprint loop working. One RLS bypass found in commitment extraction, fixed same day."
+}

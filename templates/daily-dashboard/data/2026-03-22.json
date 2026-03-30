@@ -1,0 +1,330 @@
+{
+  "$schema": "daily-snapshot-v1",
+  "date": "2026-03-22",
+  "tickets": {
+    "completed": 33,
+    "started": 0,
+    "inReview": 0,
+    "blocked": 0,
+    "todo": 0,
+    "byAgent": {
+      "dinesh": {
+        "completed": 8,
+        "started": 0,
+        "inProgress": 0
+      },
+      "gilfoyle": {
+        "completed": 11,
+        "started": 0,
+        "inProgress": 0
+      },
+      "jared": {
+        "completed": 4,
+        "started": 0,
+        "inProgress": 0
+      },
+      "jian": {
+        "completed": 3,
+        "started": 0,
+        "inProgress": 0
+      },
+      "decision": {
+        "completed": 4,
+        "started": 0,
+        "inProgress": 0
+      },
+      "bighead": {
+        "completed": 3,
+        "started": 0,
+        "inProgress": 0
+      }
+    },
+    "completedIssues": [
+      {
+        "id": "KIN-264",
+        "title": "Admin Users tab — list users, enable/disable with agent transfer gate",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-265",
+        "title": "Admin LLM Models tab — port from FounderPanel, three categories",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-263",
+        "title": "Project CRUD — name, instructions, company assignment",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-262",
+        "title": "Company CRUD + active company switcher",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-261",
+        "title": "User Profile CRUD — name, bio, API keys, default model selector",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-267",
+        "title": "Code review — Sprint 1 auth service + frontend scaffold (KIN-252, KIN-253)",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-268",
+        "title": "Active Memory spec — triple-trigger, token caps, entry structure, CRUD API",
+        "agent": "jared",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-241",
+        "title": "Spec — Projects + Conversations",
+        "agent": "jared",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-249",
+        "title": "Sprint 2 — RAG retrieval pipeline test coverage",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-271",
+        "title": "Title generation model — platform key (Haiku) or user BYOK?",
+        "agent": "decision",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-258",
+        "title": "Implement RAG retrieval pipeline",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-242",
+        "title": "Spec — Agents (AgentDefinition + AgentInstance)",
+        "agent": "jared",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-230",
+        "title": "API key encryption scheme and secrets management",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-237",
+        "title": "Spike — Text extraction library selection",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-236",
+        "title": "Spike — Background task dispatch abstraction layer",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-235",
+        "title": "Spike — Document deletion strategy (hard delete vs. soft delete with deferred cl",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-248",
+        "title": "Sprint 2 — Ingestion pipeline test coverage",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-257",
+        "title": "Projects + Conversations spec",
+        "agent": "jared",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-253",
+        "title": "Port: Frontend scaffold (Next.js App Router, shadcn, admin shell)",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-255",
+        "title": "Port: Document ingestion pipeline",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-256",
+        "title": "Sprint 1 — Auth test coverage",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-234",
+        "title": "Spike — RAG token budget: split strategy + RAG_MAX_TOKENS percentage and floor",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-252",
+        "title": "Port: Auth service from FounderPanel (magic link + OAuth)",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-254",
+        "title": "Port: LLM client abstraction (LiteLLM)",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-240",
+        "title": "ADR: Infrastructure stack (Supabase, pgvector, FastAPI, Next.js 14, LiteLLM, Bac",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-239",
+        "title": "Write db-schema-spec.md — all MVP entities",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-250",
+        "title": "Write db-schema-spec.md — canonical schema for all MVP entities",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-251",
+        "title": "ADR-001: Infrastructure choices",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-244",
+        "title": "Port frontend scaffold from FounderPanel (Next.js 14 App Router, shadcn/ui, admi",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-238",
+        "title": "Spike — KB upload size limits (cross-reference FounderPanel)",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-233",
+        "title": "API keys per provider: one or multiple?",
+        "agent": "decision",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-232",
+        "title": "Project company reassignment: what happens to existing content?",
+        "agent": "decision",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-231",
+        "title": "AgentDefinition update propagation: immediate or versioned?",
+        "agent": "decision",
+        "estimate": 0,
+        "tier": "Standard"
+      }
+    ]
+  },
+  "reviews": {
+    "totalReviews": 33,
+    "rejections": 0,
+    "rejectionRate": 0,
+    "byAgent": {
+      "dinesh": {
+        "reviews": 8,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "gilfoyle": {
+        "reviews": 11,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "jared": {
+        "reviews": 4,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "jian": {
+        "reviews": 3,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "decision": {
+        "reviews": 4,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "bighead": {
+        "reviews": 3,
+        "rejections": 0,
+        "rejectionRate": 0
+      }
+    }
+  },
+  "defects": {
+    "found": 0,
+    "fixed": 0,
+    "open": 0,
+    "byCategory": {},
+    "bySeverity": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    }
+  },
+  "cycleTime": {
+    "averageHours": 0,
+    "medianHours": 0,
+    "byAgent": {}
+  },
+  "notes": "33 tickets completed. Agents: {'dinesh': 8, 'gilfoyle': 11, 'jared': 4, 'jian': 3, 'decision': 4, 'bighead': 3}"
+}

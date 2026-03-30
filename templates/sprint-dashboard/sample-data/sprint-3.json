@@ -1,0 +1,68 @@
+{
+  "$schema": "sprint-snapshot-v1",
+  "sprint": {
+    "number": 3,
+    "name": "Sprint 3",
+    "startDate": "2026-02-03",
+    "endDate": "2026-02-14"
+  },
+  "velocity": {
+    "planned": 24,
+    "completed": 23,
+    "carryover": 1,
+    "totalPoints": 52,
+    "completedPoints": 50
+  },
+  "estimates": {
+    "coveragePercent": 75,
+    "byAgent": {
+      "alice": { "total": 12, "estimated": 10, "coveragePercent": 83 },
+      "bob":   { "total": 10, "estimated": 8,  "coveragePercent": 80 },
+      "carol": { "total": 8,  "estimated": 5,  "coveragePercent": 63 }
+    }
+  },
+  "cycleTime": {
+    "averageDays": 1.6,
+    "medianDays": 1.4,
+    "p90Days": 3.0,
+    "byAgent": {
+      "alice": { "averageDays": 1.3, "ticketCount": 12 },
+      "bob":   { "averageDays": 1.9, "ticketCount": 10 }
+    }
+  },
+  "reviews": {
+    "totalReviews": 22,
+    "rejections": 5,
+    "rejectionRate": 22.7,
+    "byAgent": {
+      "alice": { "reviews": 12, "rejections": 2, "rejectionRate": 17, "maxRounds": 2 },
+      "bob":   { "reviews": 10, "rejections": 3, "rejectionRate": 30, "maxRounds": 2 }
+    }
+  },
+  "defects": {
+    "total": 18,
+    "byCategory": {
+      "acl-leak":        1,
+      "error-swallow":   3,
+      "api-contract":    4,
+      "spec-gap":        3,
+      "schema-mismatch": 1,
+      "rls-bypass":      0,
+      "async-supabase":  1,
+      "test-missing":    2,
+      "other":           3
+    },
+    "bySeverity": { "critical": 6, "important": 10, "minor": 2 },
+    "defectsPerTicket": 1.0
+  },
+  "agentActivity": {
+    "alice": { "completed": 12, "wipPeak": 2 },
+    "bob":   { "completed": 10, "wipPeak": 2 },
+    "carol": { "completed": 8,  "wipPeak": 1 }
+  },
+  "processHealth": {
+    "decisionTicketLagHours": 1.8,
+    "handoffCompliancePercent": 91
+  },
+  "notes": "Best sprint yet. Completion 95.8%, defect density halved from Sprint 1, rejection rate down to 22.7%. Error-swallow still present (3 instances) — enforcement mechanism needed. Velocity up across all agents."
+}

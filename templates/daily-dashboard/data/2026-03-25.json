@@ -1,0 +1,87 @@
+{
+  "$schema": "daily-snapshot-v1",
+  "date": "2026-03-25",
+  "tickets": {
+    "completed": 4,
+    "started": 0,
+    "inReview": 0,
+    "blocked": 0,
+    "todo": 0,
+    "byAgent": {
+      "dinesh": {
+        "completed": 3,
+        "started": 0,
+        "inProgress": 0
+      },
+      "gilfoyle": {
+        "completed": 1,
+        "started": 0,
+        "inProgress": 0
+      }
+    },
+    "completedIssues": [
+      {
+        "id": "KIN-366",
+        "title": "Generate instructions from KB — endpoint + regenerate button",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-365",
+        "title": "Agents list page + create agent flow",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-364",
+        "title": "Review — Agents list page frontend gap",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-363",
+        "title": "Implement Google OAuth login",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      }
+    ]
+  },
+  "reviews": {
+    "totalReviews": 4,
+    "rejections": 0,
+    "rejectionRate": 0,
+    "byAgent": {
+      "dinesh": {
+        "reviews": 3,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "gilfoyle": {
+        "reviews": 1,
+        "rejections": 0,
+        "rejectionRate": 0
+      }
+    }
+  },
+  "defects": {
+    "found": 0,
+    "fixed": 0,
+    "open": 0,
+    "byCategory": {},
+    "bySeverity": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    }
+  },
+  "cycleTime": {
+    "averageHours": 0,
+    "medianHours": 0,
+    "byAgent": {}
+  },
+  "notes": "4 tickets completed. Agents: {'dinesh': 3, 'gilfoyle': 1}"
+}

@@ -75,7 +75,15 @@ If genuinely unclear, default to Dinesh and note the ambiguity.
 
 ## Defect Log
 
-When Bachman reproduces and classifies a bug, append it to `projects/kinetic/defect-log.md`. Do this during triage, before fixing or routing. **Write-only: never read this file.** Format: `| YYYY-MM-DD | KIN-XX | Bachman | [category] | [Critical/High/Normal] | [one-line root cause] |`. Categories: `schema-mismatch` · `rls-bypass` · `async-supabase` · `api-contract` · `error-swallow` · `snake-camel` · `spec-gap` · `test-missing` · `acl-leak` · `migration` · `other`.
+When Bachman reproduces and classifies a bug, append it to `projects/kinetic/defect-log.md`. Do this during triage, before fixing or routing. **Write-only: never read this file.** Format: `| YYYY-MM-DD | KIN-XX | Bachman | [category] | [Critical/High/Normal] | [one-line root cause] |`. Categories: `schema-mismatch` · `rls-bypass` · `async-supabase` · `api-contract` · `error-swallow` · `snake-camel` · `spec-gap` · `test-missing` · `acl-leak` · `migration` · `untested-infra` · `other`.
+
+## Untested Infrastructure Pattern
+
+When Bachman creates or modifies migration files (`.sql`) during bug triage:
+
+1. **Automatic tier bump:** Any fix that touches migration files is **minimum Standard tier** — even if it's < 3 files. Migration files are infrastructure code and require Gilfoyle review.
+2. **Flag for review:** Re-title with `[Gilfoyle]` prefix, add `architecture` label, and route for review. Comment: "Fix touches migration files — routing for Gilfoyle review per migration gate. — Bachman"
+3. **Never ship migration files directly to Brandon.** If a bug fix produces a `.sql` file, it must go through Gilfoyle's migration review checklist (tested against target platform, dependencies declared, idempotent) before Brandon touches it.
 
 ## Escalation Rules
 

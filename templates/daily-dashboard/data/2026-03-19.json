@@ -1,0 +1,358 @@
+{
+  "$schema": "daily-snapshot-v1",
+  "date": "2026-03-19",
+  "tickets": {
+    "completed": 37,
+    "started": 0,
+    "inReview": 0,
+    "blocked": 0,
+    "todo": 0,
+    "byAgent": {
+      "dinesh": {
+        "completed": 13,
+        "started": 0,
+        "inProgress": 0
+      },
+      "bachman": {
+        "completed": 2,
+        "started": 0,
+        "inProgress": 0
+      },
+      "bighead": {
+        "completed": 7,
+        "started": 0,
+        "inProgress": 0
+      },
+      "gilfoyle": {
+        "completed": 7,
+        "started": 0,
+        "inProgress": 0
+      },
+      "jian": {
+        "completed": 6,
+        "started": 0,
+        "inProgress": 0
+      },
+      "jared": {
+        "completed": 2,
+        "started": 0,
+        "inProgress": 0
+      }
+    },
+    "completedIssues": [
+      {
+        "id": "KIN-229",
+        "title": "Fix \"More Integrations\" step failing to load integration status during onboardin",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Fast"
+      },
+      {
+        "id": "KIN-228",
+        "title": "Fix LinkedIn PDF parse failure — pdf-parse v2 class API + … placeholder bug",
+        "agent": "bachman",
+        "estimate": 0,
+        "tier": "Fast"
+      },
+      {
+        "id": "KIN-199",
+        "title": "Source of Truth docs — flag/unflag from Settings, topic labels, retrieval boost,",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-217",
+        "title": "Review W12 Dinesh specs — MCP Setup Guide + App Navigation",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-198",
+        "title": "Dashboard Part B — interactive widgets (quick-ask, agent status, SoT docs, pendi",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-227",
+        "title": "Super-admin UI — /super-admin dashboard and create company modal",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-225",
+        "title": "Super-admin API endpoints — list workspaces, create workspace, generate invite",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-226",
+        "title": "Next.js middleware auth gate for /super-admin",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-212",
+        "title": "Review W11 implementations — Tasks, Notification Preferences, Push Summaries, Co",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-211",
+        "title": "Push Summaries Part B — settings UI, config creation, 3-cap enforcement (#6)",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-224",
+        "title": "Super-admin data layer — platform_users migration, invites schema changes, auth ",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-213",
+        "title": "W11 test activation — unskip and run scaffolded tests as implementations land",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-210",
+        "title": "Tasks page Part B — TaskList UI, filters, sort, inline actions (#23)",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-223",
+        "title": "Architecture — Super-Admin Company Management",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-222",
+        "title": "Spec — Super-Admin Company Management",
+        "agent": "jared",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-209",
+        "title": "Context Inventory — RPC, API route, SourceCard component, 120s polling (#14)",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-208",
+        "title": "Push Summaries Part A — scheduler, assembler, templates, delivery pipeline (#6)",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-218",
+        "title": "Fix Google OAuth — provider not enabled in Supabase (validation_failed 400)",
+        "agent": "bachman",
+        "estimate": 0,
+        "tier": "Fast"
+      },
+      {
+        "id": "KIN-183",
+        "title": "Custom agents — Part C: delivery + approve/dismiss UX",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-219",
+        "title": "Notification Preferences — implement stub tests (SR, HM, INT)",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-207",
+        "title": "Notification Preferences — settings page, dispatcher wiring, HMAC unsubscribe (#",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-205",
+        "title": "Spec W12 Dinesh features — MCP Setup Guide (#13) and App Navigation polish",
+        "agent": "jared",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-216",
+        "title": "W12 test plans + scaffolding — Metrics, Value & Impact, Data Trust",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-206",
+        "title": "Tasks page Part A — backend RPC, unified item model, API route (#23)",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-204",
+        "title": "Define performance benchmarks — retrieval latency, ingestion throughput, backfil",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-203",
+        "title": "Write integration testing plan — end-to-end scenarios covering all 6 initiatives",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-215",
+        "title": "W11 frontend scaffolding — TaskList + SourceCard components, context-inventory A",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-197",
+        "title": "Test plans — Agent accuracy graph, SoT docs management, Company Briefs settings ",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-196",
+        "title": "Review W10 implementation — Dashboard, agent accuracy graph, SoT docs, Company B",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-214",
+        "title": "KIN-195 fixes — workspace filter, validator, version records, dead hook",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-195",
+        "title": "Company Briefs settings page — view/edit all 5, version history, pending updates",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-194",
+        "title": "Agent accuracy graph — approval rate + suggestion volume over time, per-agent pa",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-182",
+        "title": "Implement thought capture (W4)",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-193",
+        "title": "Dashboard Part A — layout + data widgets (integration health, briefs, digest hig",
+        "agent": "dinesh",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-181",
+        "title": "Custom agents — Part B: scheduler + detection pipeline",
+        "agent": "bighead",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-192",
+        "title": "Spec Source of Truth docs management — flag/unflag, topic labels, retrieval boos",
+        "agent": "gilfoyle",
+        "estimate": 0,
+        "tier": "Standard"
+      },
+      {
+        "id": "KIN-200",
+        "title": "W10 test scaffolding — Dashboard widgets, agent accuracy, briefs settings page",
+        "agent": "jian",
+        "estimate": 0,
+        "tier": "Standard"
+      }
+    ]
+  },
+  "reviews": {
+    "totalReviews": 37,
+    "rejections": 0,
+    "rejectionRate": 0,
+    "byAgent": {
+      "dinesh": {
+        "reviews": 13,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "bachman": {
+        "reviews": 2,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "bighead": {
+        "reviews": 7,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "gilfoyle": {
+        "reviews": 7,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "jian": {
+        "reviews": 6,
+        "rejections": 0,
+        "rejectionRate": 0
+      },
+      "jared": {
+        "reviews": 2,
+        "rejections": 0,
+        "rejectionRate": 0
+      }
+    }
+  },
+  "defects": {
+    "found": 3,
+    "fixed": 3,
+    "open": 0,
+    "byCategory": {},
+    "bySeverity": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    }
+  },
+  "cycleTime": {
+    "averageHours": 0,
+    "medianHours": 0,
+    "byAgent": {}
+  },
+  "notes": "37 tickets completed. Agents: {'dinesh': 13, 'bachman': 2, 'bighead': 7, 'gilfoyle': 7, 'jian': 6, 'jared': 2}"
+}

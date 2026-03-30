@@ -1,0 +1,49 @@
+
+=== 2026-03-23 13:34:03 — Jìan waking ===
+Failed to authenticate. API Error: 401 {"type":"error","error":{"type":"authentication_error","message":"OAuth token has expired. Please obtain a new token or refresh your existing token."},"request_id":"req_011CZLegwxjRMn9snUD1ubeT"}
+=== 2026-03-23 13:34:11 — Jìan sleeping 15min ===
+
+=== 2026-03-23 13:47:23 — Jìan waking ===
+KIN-314 is Done. Here's the summary:
+
+---
+
+**KIN-314 — Complete**
+
+**What was already there:** 18 tests covering BYOK gate (profile only), file lifecycle, extraction for all three surfaces, model error paths, and review+save.
+
+**Gap found:** Two missing coverage areas:
+1. **Parsing error path** (`extract_text` raises `RuntimeError` for corrupted documents → 422) — none of the three surfaces tested this
+2. **BYOK gate on company + agent surfaces** — only profile was tested; company and agent were untested
+
+**Added:** 5 tests across `TestCorruptedDocumentParsing` and `TestBYOKGateAllSurfaces`
+
+**Result:** 23/23 linked upload tests pass. Full suite: 224 passed, 6 skipped.
+
+**Commit ready:** Run `/private/tmp/claude-501/commit_kin314.sh`
+=== 2026-03-23 13:49:43 — Jìan sleeping 15min ===
+
+=== 2026-03-23 13:55:50 — Jìan waking ===
+**KIN-328 complete.** Please run:
+
+```bash
+bash /private/tmp/claude-501/commit_kin328.sh
+```
+
+---
+
+**Summary of what was built:**
+
+| File | Purpose |
+|---|---|
+| `evals/active_memory/conversations.py` | 17 synthetic conversations (5 categories, incl. sparse/contradiction edge cases) |
+| `evals/active_memory/judge.py` | 0/1/2 proposal quality judge (GPT-4o) |
+| `evals/active_memory/eval_runner.py` | Runner: global mean ≥ 1.5, hallucination < 15% |
+| `evals/linked_upload/documents.py` | 30 synthetic docs (10/surface, with edge cases) |
+| `evals/linked_upload/judge.py` | Name precision + 1–3 relevance judge |
+| `evals/linked_upload/eval_runner.py` | Runner: name ≥ 85%, relevance ≥ 2.0; calls extractor directly |
+
+Both frameworks dry-run clean. To run for real, set `OPENAI_API_KEY` and drop `DRY_RUN=1`.
+=== 2026-03-23 14:07:51 — Jìan sleeping 15min ===
+
+=== 2026-03-23 14:22:51 — Jìan waking ===

@@ -1,0 +1,47 @@
+{
+  "$schema": "daily-snapshot-v1",
+  "date": "2026-03-26",
+  "tickets": {
+    "completed": 2,
+    "started": 3,
+    "inReview": 2,
+    "blocked": 0,
+    "todo": 6,
+    "byAgent": {
+      "dinesh":  { "completed": 1, "started": 2, "inProgress": 2 },
+      "bighead": { "completed": 1, "started": 1, "inProgress": 1 }
+    },
+    "completedIssues": [
+      { "id": "KIN-322", "title": "Implement project chat page shell", "agent": "dinesh", "estimate": 2, "tier": "Standard" },
+      { "id": "KIN-323", "title": "Add active memory proposal background job", "agent": "bighead", "estimate": 2, "tier": "Standard" }
+    ]
+  },
+  "reviews": {
+    "totalReviews": 3,
+    "rejections": 1,
+    "rejectionRate": 33.3,
+    "byAgent": {
+      "dinesh":  { "reviews": 2, "rejections": 1, "rejectionRate": 50 },
+      "bighead": { "reviews": 1, "rejections": 0, "rejectionRate": 0 }
+    }
+  },
+  "defects": {
+    "found": 2,
+    "fixed": 2,
+    "open": 4,
+    "byCategory": {
+      "api-contract": 1,
+      "schema-mismatch": 1
+    },
+    "bySeverity": { "critical": 0, "important": 2, "minor": 0 }
+  },
+  "cycleTime": {
+    "averageHours": 16.0,
+    "medianHours": 14.0,
+    "byAgent": {
+      "dinesh":  { "averageHours": 14.0, "ticketCount": 1 },
+      "bighead": { "averageHours": 18.0, "ticketCount": 1 }
+    }
+  },
+  "notes": "Day in progress. Several new tickets started — PRD gap coverage tickets coming in. Defect burn holding flat."
+}
