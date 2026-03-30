@@ -1,7 +1,7 @@
 /**
  * Kinetic Remote MCP Server — Supabase Edge Function Entry Point (KIN-433).
  *
- * Hono app implementing MCP Streamable HTTP transport (JSON-RPC 2.0).
+ * Direct Deno.serve handler implementing MCP Streamable HTTP transport (JSON-RPC 2.0).
  * Fully stateless — new server context per request. No subscriptions.
  *
  * Auth: Bearer mcp_<token> → user_id
@@ -11,7 +11,6 @@
  * Spec: docs/specs/remote-mcp-server-spec.md, Step 7
  */
 
-import { Hono } from "hono";
 import { createClient } from "@supabase/supabase-js";
 import { authenticate } from "./auth.ts";
 import { TOOL_DEFINITIONS, executeTool } from "./tools.ts";
@@ -41,6 +40,18 @@ const SERVER_INFO = {
 };
 
 // ---------------------------------------------------------------------------
+// CORS headers
+// ---------------------------------------------------------------------------
+
+const CORS_HEADERS: Record<string, string> = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, GET, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers":
+    "Content-Type, Authorization, Mcp-Session-Id, Last-Event-ID",
+  "Access-Control-Expose-Headers": "Mcp-Session-Id",
+};
+
+// ---------------------------------------------------------------------------
 // JSON-RPC helpers
 // ---------------------------------------------------------------------------
 
@@ -51,26 +62,71 @@ interface JsonRpcRequest {
   params?: Record<string, unknown>;
 }
 
-function jsonRpcResponse(id: string | number | null, result: unknown): Response {
-  return new Response(
-    JSON.stringify({ jsonrpc: "2.0", id, result }),
-    { headers: { "Content-Type": "application/json" } }
-  );
+/** Does the request Accept SSE? If so, wrap responses as text/event-stream. */
+function wantsSSE(req: Request): boolean {
+  const accept = req.headers.get("Accept") || req.headers.get("accept") || "";
+  return accept.includes("text/event-stream");
+}
+
+/** Wrap a JSON-RPC payload as a single SSE event and close the stream. */
+function sseResponse(
+  payload: Record<string, unknown>,
+  extraHeaders?: Record<string, string>
+): Response {
+  const data = JSON.stringify(payload);
+  const body = `event: message\ndata: ${data}\n\n`;
+  return new Response(body, {
+    headers: {
+      "Content-Type": "text/event-stream",
+      "Cache-Control": "no-cache",
+      Connection: "keep-alive",
+      ...CORS_HEADERS,
+      ...extraHeaders,
+    },
+  });
+}
+
+function jsonRpcResponse(
+  id: string | number | null,
+  result: unknown,
+  req: Request,
+  extraHeaders?: Record<string, string>
+): Response {
+  const payload = { jsonrpc: "2.0" as const, id, result };
+  if (wantsSSE(req)) {
+    return sseResponse(payload, extraHeaders);
+  }
+  return new Response(JSON.stringify(payload), {
+    headers: {
+      "Content-Type": "application/json",
+      ...CORS_HEADERS,
+      ...extraHeaders,
+    },
+  });
 }
 
 function jsonRpcError(
   id: string | number | null,
   code: number,
-  message: string
+  message: string,
+  req?: Request,
+  extraHeaders?: Record<string, string>
 ): Response {
-  return new Response(
-    JSON.stringify({
-      jsonrpc: "2.0",
-      id,
-      error: { code, message },
-    }),
-    { headers: { "Content-Type": "application/json" } }
-  );
+  const payload = {
+    jsonrpc: "2.0" as const,
+    id,
+    error: { code, message },
+  };
+  if (req && wantsSSE(req)) {
+    return sseResponse(payload, extraHeaders);
+  }
+  return new Response(JSON.stringify(payload), {
+    headers: {
+      "Content-Type": "application/json",
+      ...CORS_HEADERS,
+      ...extraHeaders,
+    },
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -95,7 +151,6 @@ async function handleMcpMethod(
       };
 
     case "notifications/initialized":
-      // Client acknowledgment — no response needed
       return null;
 
     case "tools/list":
@@ -151,62 +206,95 @@ async function handleMcpMethod(
 }
 
 // ---------------------------------------------------------------------------
-// Hono app
+// Request handler (no Hono — direct Deno.serve)
 // ---------------------------------------------------------------------------
 
-const app = new Hono();
+Deno.serve(async (req: Request) => {
+  // CORS preflight
+  if (req.method === "OPTIONS") {
+    return new Response(null, { status: 204, headers: CORS_HEADERS });
+  }
 
-/**
- * POST / — MCP Streamable HTTP transport.
- * Receives JSON-RPC request, authenticates, dispatches to MCP handler.
- */
-app.post("/", async (c) => {
+  // DELETE — session termination (stateless: always accept)
+  if (req.method === "DELETE") {
+    return new Response(null, { status: 202, headers: CORS_HEADERS });
+  }
+
+  // GET — spec uses this for server→client SSE stream.
+  // Stateless server: no server-initiated messages. Return 405.
+  if (req.method === "GET") {
+    return new Response(null, {
+      status: 405,
+      headers: { Allow: "POST, OPTIONS, DELETE", ...CORS_HEADERS },
+    });
+  }
+
+  // Only POST from here
+  if (req.method !== "POST") {
+    return new Response("Method not allowed", {
+      status: 405,
+      headers: CORS_HEADERS,
+    });
+  }
+
   const supabase = getSupabase();
 
   // Authenticate
   let userId: string;
   try {
-    const authResult = await authenticate(c.req.raw, supabase);
+    const authResult = await authenticate(req, supabase);
     userId = authResult.userId;
   } catch (err) {
     const message = err instanceof Error ? err.message : "Authentication failed";
-    return jsonRpcError(null, -32000, message);
+    return jsonRpcError(null, -32000, message, req);
   }
 
   // Parse JSON-RPC request
   let rpcRequest: JsonRpcRequest;
   try {
-    rpcRequest = await c.req.json<JsonRpcRequest>();
+    rpcRequest = await req.json();
   } catch {
-    return jsonRpcError(null, -32700, "Parse error: invalid JSON");
+    return jsonRpcError(null, -32700, "Parse error: invalid JSON", req);
   }
 
   if (rpcRequest.jsonrpc !== "2.0" || !rpcRequest.method) {
     return jsonRpcError(
       rpcRequest.id ?? null,
       -32600,
-      "Invalid request: missing jsonrpc version or method"
+      "Invalid request: missing jsonrpc version or method",
+      req
     );
   }
 
   const id = rpcRequest.id ?? null;
   const params = rpcRequest.params || {};
 
-  // Notifications (no id) get 202 Accepted
+  // Notifications (no id) get 202 Accepted per spec
   if (id === null || id === undefined) {
-    // Still process the method (e.g., notifications/initialized) but don't send result
     try {
       await handleMcpMethod(rpcRequest.method, params, userId, supabase);
     } catch {
       // Notifications don't get error responses
     }
-    return new Response(null, { status: 202 });
+    return new Response(null, { status: 202, headers: CORS_HEADERS });
+  }
+
+  // For initialize: generate a session ID (stateless — throwaway, but spec-
+  // compliant clients expect to receive and echo it back).
+  const extraHeaders: Record<string, string> = {};
+  if (rpcRequest.method === "initialize") {
+    extraHeaders["Mcp-Session-Id"] = crypto.randomUUID();
   }
 
   // Dispatch to MCP handler
   try {
-    const result = await handleMcpMethod(rpcRequest.method, params, userId, supabase);
-    return jsonRpcResponse(id, result);
+    const result = await handleMcpMethod(
+      rpcRequest.method,
+      params,
+      userId,
+      supabase
+    );
+    return jsonRpcResponse(id, result, req, extraHeaders);
   } catch (err) {
     if (
       typeof err === "object" &&
@@ -215,46 +303,9 @@ app.post("/", async (c) => {
       "message" in err
     ) {
       const rpcErr = err as { code: number; message: string };
-      return jsonRpcError(id, rpcErr.code, rpcErr.message);
+      return jsonRpcError(id, rpcErr.code, rpcErr.message, req, extraHeaders);
     }
     const message = err instanceof Error ? err.message : "Internal error";
-    return jsonRpcError(id, -32603, message);
+    return jsonRpcError(id, -32603, message, req, extraHeaders);
   }
 });
-
-/**
- * GET / — SSE endpoint for server-initiated events.
- * Stateless server — no subscriptions, return 405.
- */
-app.get("/", (c) => {
-  return c.json(
-    {
-      jsonrpc: "2.0",
-      error: {
-        code: -32000,
-        message: "This server is stateless and does not support SSE subscriptions. Use POST for MCP requests.",
-      },
-    },
-    405
-  );
-});
-
-/**
- * OPTIONS / — CORS preflight for cross-origin MCP clients.
- */
-app.options("/", (c) => {
-  return new Response(null, {
-    status: 204,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization",
-    },
-  });
-});
-
-// ---------------------------------------------------------------------------
-// Serve
-// ---------------------------------------------------------------------------
-
-Deno.serve(app.fetch);

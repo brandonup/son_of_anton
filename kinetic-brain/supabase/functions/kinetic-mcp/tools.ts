@@ -528,6 +528,18 @@ export async function executeTool(
   toolName: string,
   args: Record<string, unknown>
 ): Promise<string> {
+  // Validate required 'agent' param for agent-scoped tools
+  const agentTools = [
+    "get_agent_persona",
+    "get_active_memory",
+    "select_framework",
+    "search_knowledge_base",
+  ];
+  if (agentTools.includes(toolName) && !args.agent) {
+    return `Error: Missing required parameter "agent" (the agent slug, e.g. "nate"). ` +
+      `Call list_kinetic_agents to see available agents.`;
+  }
+
   switch (toolName) {
     case "list_kinetic_agents":
       return await listKineticAgents(supabase, userId);
