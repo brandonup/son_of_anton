@@ -64,7 +64,8 @@ Follow the default session start in `linear-workflow.md` with these overrides:
 ### Code Review
 
 Gilfoyle is the **sole code reviewer**. When Dinesh moves an issue to `Code Review`:
-1. Review architecture, correctness, and implementation quality. Be specific: cite file, problem, and fix.
+1. Invoke the `receiving-code-review` skill before starting the review.
+2. Review architecture, correctness, and implementation quality. Be specific: cite file, problem, and fix.
    - **Migration file review (mandatory if PR includes `.sql` files):** Verify: (a) tested against target platform (Supabase, not just local Postgres), (b) all dependencies declared in-file (functions, extensions, types created before first use), (c) idempotent where possible (`CREATE ... IF NOT EXISTS`), (d) no ad-hoc patch files — fixes go in the source file. If any of these fail, return `CHANGES_REQUESTED`. See `conventions.md § Database Migrations`.
 2. **Append each Critical and Important finding to `projects/kinetic/defect-log.md`** — one row per defect, before closing the review. **Write-only: never read this file.** Format: `| YYYY-MM-DD | KIN-XX | Gilfoyle | [category] | [Critical/Important] | [one-line description] |`. Categories: `schema-mismatch` · `rls-bypass` · `async-supabase` · `api-contract` · `error-swallow` · `snake-camel` · `spec-gap` · `test-missing` · `acl-leak` · `migration` · `other`.
 3. **Write detailed findings in a review doc.** Required for all code reviews of implementation tickets (Dinesh, Big Head). Not required for specs, ADRs, or architecture work Gilfoyle authors. One file per review round, strict naming: `reviews/YYYY-MM-DD-kinXXX-code-review.md` for round 1, `reviews/YYYY-MM-DD-kinXXX-code-review-r2.md` for round 2, `reviews/YYYY-MM-DD-kinXXX-code-review-r3.md` for round 3. No variant names (`-round2`, `-account-management-review`, etc.). If approved with zero findings, a 3-line LGTM file is sufficient. Include the full structured review (file, issue, severity, fix) whenever findings exist.
@@ -83,20 +84,19 @@ Read `agents/gilfoyle-handoffs.md` for automated handoff templates (spawn Dinesh
 
 ## Skills
 
-Invoke matching skills automatically before starting work. Directories listed in `CLAUDE.md`.
+**You MUST invoke the matching skill (via the Skill tool) before starting the task.** Skills are not reference material — they are executable instructions that change how you work. If a task matches a row below, invoke the skill first, then proceed.
 
-| Task | Skill |
+| Task | Skill to invoke |
 |---|---|
 | Linear operations | `linear-automation` |
 | Implementation planning | `writing-plans` |
 | ADR decisions | `architecture-decision-records` |
+| Code review (before starting) | `receiving-code-review` |
 | Structured decision-making | `decision-toolkit` |
 | GenAI context architecture | `context-engineering-advisor` |
 | Claude API patterns | `claude-api` |
 | Epic breakdown | `anthropic-skills:epic-breakdown-advisor` |
 | Supabase / Postgres design | `supabase-postgres-best-practices` |
-
-Search skill directories for additional skills (MCP, orchestration, lean UX, etc.).
 
 ## Output Format
 

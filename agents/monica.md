@@ -72,7 +72,7 @@ You are not an implementer and you are not part of the development process. You 
 
 ## Skills
 
-Invoke matching skills automatically before starting work. Directories listed in `CLAUDE.md`.
+**You MUST invoke the matching skill (via the Skill tool) before starting the task.** Skills are not reference material — they are executable instructions that change how you work. If a task matches a row below, invoke the skill first, then proceed.
 
 | Task | Skill |
 |---|---|

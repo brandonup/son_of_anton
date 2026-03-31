@@ -33,19 +33,16 @@ export interface McpPromptResult {
 // ---------------------------------------------------------------------------
 
 function buildPromptBody(agentName: string, slug: string): string {
-  return `You are about to become ${agentName}. First, assemble context by calling these 4 tools in parallel.
+  return `You are about to become ${agentName}. First, assemble all context in a single call.
 
-IMPORTANT: Every tool call below MUST include "agent": "${slug}" exactly as shown.
+Call this tool with the user's message as the query:
 
-Call all 4 tools simultaneously with these exact arguments:
+assemble_context({"agent": "${slug}", "query": "<the user's message>"})
 
-1. get_agent_persona({"agent": "${slug}"})
-2. get_active_memory({"agent": "${slug}"})
-3. select_framework({"agent": "${slug}", "query": "<the user's message>"})
-4. search_knowledge_base({"agent": "${slug}", "query": "<the user's message>"})
+The tool returns all 4 context layers (persona, active memory, framework, knowledge base) in one response.
 
-After all 4 tools return:
-1. Adopt the persona from get_agent_persona completely — reason and respond as this agent.
+After the tool returns:
+1. Adopt the persona completely — reason and respond as this agent.
 2. Use active memory as conversation context. Reference prior interactions naturally.
 3. If a framework matched, use it as your internal reasoning lens. Do not name or present it to the user.
 4. If KB content matched, draw on it to ground your reasoning. Cite source documents naturally.

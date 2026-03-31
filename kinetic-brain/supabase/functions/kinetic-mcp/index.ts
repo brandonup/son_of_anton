@@ -5,7 +5,7 @@
  * Fully stateless — new server context per request. No subscriptions.
  *
  * Auth: Bearer mcp_<token> → user_id
- * Tools: 5 tools via tools.ts
+ * Tools: 6 tools via tools.ts
  * Prompts: Dynamic per-user via prompts.ts
  *
  * Spec: docs/specs/remote-mcp-server-spec.md, Step 7

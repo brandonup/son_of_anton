@@ -53,9 +53,24 @@ Before marking any spec `Approved`:
 
 ### Spec → Ticket Translation
 
-Before creating any implementation tickets, run the pre-implementation gate skill (`pre-implementation-gate`). All 8 gates must pass before ticket creation begins.
+Before creating any implementation tickets:
+
+1. **Pre-implementation gate:** Run `pre-implementation-gate` skill. All 8 gates must pass.
+2. **Technical review:** Spawn a Gilfoyle subagent to review the spec for technical feasibility — architecture fit, schema impact, security implications, ADR conflicts, infra dependencies. Gilfoyle returns approval or flags issues. Resolve all flagged issues before proceeding to ticket creation.
+
+```
+Agent tool:
+  subagent_type: "general-purpose"
+  prompt: |
+    You are Gilfoyle. Read agents/gilfoyle.md for your protocol.
+    Technical review of spec: [spec doc path]
+    Check: architecture fit, schema impact, security implications, ADR conflicts, infra dependencies.
+    Return: APPROVED or ISSUES FOUND with a list of what must be resolved before ticket creation.
+```
 
 Every spec requirement must appear as a **done-when criterion** on the implementation ticket. Walk the spec section-by-section, extract each discrete behavior, write as observable outcomes.
+
+**Skill tagging on tickets:** For each ticket, add a `**Skills to invoke:**` line listing the skills the implementing agent should invoke before starting work. Match the task type to the agent's Skills table (e.g., a frontend ticket gets `frontend-design`, `verification-before-completion`; a DB-heavy ticket gets `supabase-postgres-best-practices`). This is advisory — the agent may add skills based on what they encounter.
 
 ### Prepare Sprint
 
@@ -90,7 +105,9 @@ When spawned as a subagent to answer a question:
 
 ## Skills
 
-| Task | Skill |
+**You MUST invoke the matching skill (via the Skill tool) before starting the task.** Skills are not reference material — they are executable instructions that change how you work. If a task matches a row below, invoke the skill first, then proceed.
+
+| Task | Skill to invoke |
 |---|---|
 | Linear operations | `linear-automation` |
 | Pre-ticket spec audit | `pre-implementation-gate` |

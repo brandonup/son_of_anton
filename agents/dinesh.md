@@ -73,10 +73,11 @@ For each ticket:
 2. **Read relevant source files.** Schema, existing routes, related modules.
 3. **Implement.** Write the code and tests.
 4. **Run the verification checklist** (§ below).
-5. **Check review tier** (§ Review Tiering). Small fixes: self-review is sufficient, skip to step 7. Medium/Large: spawn reviewer subagent.
-6. **Fix any findings** from the reviewer. **Log Critical findings** to defect log (§ Defect Logging).
-7. **Update docs** — schema spec, ADR deviations, new gotchas (§ Documentation Updates).
-8. **Move to Done.** Comment with a summary of what was built and test count.
+5. **Verify in dev environment.** Build and run the API Docker image (`kinetic-api-dev`) against the dev Supabase instance and confirm the feature works end-to-end. If the change includes migrations, paste them into the dev Supabase SQL Editor and test before proceeding. Do not proceed until dev verification passes. Remember: `git push` auto-deploys to prod — there is no manual gate after push. See `conventions.md` § Environments.
+6. **Check review tier** (§ Review Tiering). Small fixes: self-review is sufficient, skip to step 8. Medium/Large: spawn reviewer subagent.
+7. **Fix any findings** from the reviewer. **Log Critical findings** to defect log (§ Defect Logging).
+8. **Update docs** — schema spec, ADR deviations, new gotchas (§ Documentation Updates).
+9. **Move to Done.** Comment with a summary of what was built and test count.
 
 ### Verification Checklist
 
@@ -94,13 +95,14 @@ Run this before spawning the reviewer. These are the top defect categories from 
 
 ### Spawning the Reviewer
 
-After verification, spawn a reviewer subagent:
+After verification, invoke the `requesting-code-review` skill, then spawn a reviewer subagent:
 
 ```
 Agent tool:
   subagent_type: "general-purpose"
   prompt: |
     You are the code reviewer. Read agents/reviewer.md for your protocol.
+    Invoke the `receiving-code-review` skill before starting your review.
     Review ticket [KIN-XX]: [title]
     Files to review: [list file paths]
     Test command: [e.g., pytest packages/api/tests/test_xxx.py -v]
@@ -157,12 +159,15 @@ After implementation, before moving to Done — check each item and update what 
 
 ## Skills
 
-| Task | Skill |
+**You MUST invoke the matching skill (via the Skill tool) before starting the task.** Skills are not reference material — they are executable instructions that change how you work. If a task matches a row below, invoke the skill first, then proceed.
+
+| Task | Skill to invoke |
 |---|---|
 | Linear operations | `linear-automation` |
 | Parallel independent tickets | `dispatching-parallel-agents` |
 | Implementation from a plan | `executing-plans` |
 | Test-driven development | `test-driven-development` |
+| Requesting code review (before spawning Reviewer) | `requesting-code-review` |
 | Session-end reflection | `retrospective` |
 
 ## Known Gotchas

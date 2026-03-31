@@ -1,6 +1,6 @@
 # Son of Anton — Process Map
 
-Last updated: 2026-03-28
+Last updated: 2026-03-30
 
 This is the single source of truth for how the Son of Anton system works. Every process file, agent, skill, and workflow is documented here with its purpose, dependencies, and relationships. **Update this file whenever the process changes.**
 
@@ -9,9 +9,9 @@ This is the single source of truth for how the Son of Anton system works. Every 
 ## End-to-End Workflow
 
 ```
-Idea → Spec → Tickets → Implementation → Review → Done
- │       │       │            │              │        │
-Brandon  Jared   Jared     Dinesh        Reviewer  Dinesh
+Idea → Spec → Tech Review → Tickets → Implementation → Dev Verify → Review → Done
+ │       │        │            │            │               │           │        │
+Brandon  Jared  Gilfoyle     Jared       Dinesh          Dinesh     Reviewer  Dinesh
 ```
 
 ### Stage 1: Idea
@@ -25,9 +25,15 @@ Brandon  Jared   Jared     Dinesh        Reviewer  Dinesh
 **Output:** Approved spec document in `projects/[project]/docs/`.
 **Governed by:** `agents/jared.md` § Spec Approval Checklist
 
+### Stage 2b: Technical Review
+**Owner:** Gilfoyle (spawned by Jared as subagent)
+**What happens:** After Brandon approves a spec, Jared spawns Gilfoyle to review it from a technical feasibility perspective — architecture fit, schema impact, security implications, ADR conflicts, infra dependencies. Gilfoyle returns approval or flags issues that must be resolved before ticket creation.
+**Output:** Tech review verdict (approved or issues flagged). ADR updates if needed.
+**Governed by:** `agents/gilfoyle.md`, `agents/jared.md` § Spec → Ticket Translation
+
 ### Stage 3: Tickets
 **Owner:** Jared
-**What happens:** Jared translates the approved spec into implementation tickets with done-when criteria, estimates, and priorities. Tickets land in Todo.
+**What happens:** After Gilfoyle's tech review passes, Jared translates the approved spec into implementation tickets with done-when criteria, estimates, and priorities. Tickets land in Todo.
 **Output:** Linear tickets in Todo queue.
 **Governed by:** `agents/jared.md` § Spec → Ticket Translation, `agents/linear-workflow.md`
 
@@ -36,6 +42,12 @@ Brandon  Jared   Jared     Dinesh        Reviewer  Dinesh
 **What happens:** Dinesh picks highest-priority Todo, moves to In Progress, implements code + tests, runs verification checklist.
 **Output:** Working code with tests passing.
 **Governed by:** `agents/dinesh.md` § Implementation Flow, § Verification Checklist
+
+### Stage 4b: Dev Environment Verification
+**Owner:** Dinesh
+**What happens:** After implementation and verification checklist, Dinesh builds the `kinetic-api-dev` Docker image and runs the code against the dev Supabase instance. Migrations are pasted into the dev Supabase SQL Editor and tested first. No code proceeds to review without passing dev verification. This is critical because `git push` auto-deploys to both Railway (API) and Vercel (frontend) — there is no manual deploy gate.
+**Output:** Confirmed working feature in dev environment.
+**Governed by:** `agents/dinesh.md` § Implementation Flow step 5, `conventions.md` § Environments, `projects/kinetic/docs/environment-architecture.md`
 
 ### Stage 5: Review
 **Owner:** Reviewer (spawned by Dinesh as subagent)
@@ -92,12 +104,13 @@ Defect pattern / process friction detected → Richard invokes write-policy skil
 | Agent | Role | When to use | File |
 |---|---|---|---|
 | **Dinesh** | Implementation | Building features, fixing bugs, shipping code | `agents/dinesh.md` |
+| **Gilfoyle** | Technical review | Pre-implementation spec review, ADR ownership, schema spec ownership | `agents/gilfoyle.md` |
 | **Reviewer** | Code review | Spawned automatically by Dinesh — not used standalone | `agents/reviewer.md` |
 | **Jared** | Product | Writing specs, creating tickets, answering product questions, sprint planning | `agents/jared.md` |
 | **Richard** | Dev process | Velocity analysis, process audits, sprint health, bottleneck diagnosis | `agents/richard.md` |
 | **Monica** | AI systems advisor | Architecture advice, eval design, context engineering — advisory only | `agents/monica.md` |
 
-**Archived agents** (available on-demand from `agents/archive/`): Gilfoyle (tech lead), BigHead, Jian, Bachman, old-builder.
+**Archived agents** (available on-demand from `agents/archive/`): BigHead, Jian, Bachman, old-builder.
 
 ---
 
@@ -110,7 +123,7 @@ Every file that governs process behavior, its purpose, and what depends on it.
 | File | Purpose | Depended on by |
 |---|---|---|
 | `CLAUDE.md` | Top-level config: agent list, security rules, session start protocol, skills directories, operating norms | All agents, every session |
-| `conventions.md` | Code style, git workflow, doc naming, MEMORY.md rules, testing standards | All agents that write code or docs |
+| `conventions.md` | Code style, git workflow, doc naming, MEMORY.md rules, testing standards, environment config | All agents that write code or docs |
 | `process.md` | This file — process map and dependency registry | Richard (audits), Brandon (reference) |
 
 ### Agent Files
@@ -118,17 +131,19 @@ Every file that governs process behavior, its purpose, and what depends on it.
 | File | Purpose | Depended on by |
 |---|---|---|
 | `agents/dinesh.md` | Implementation workflow, verification checklist, known gotchas, reviewer spawning | Dinesh sessions, Reviewer (spawned from here) |
+| `agents/gilfoyle.md` | Technical review protocol, ADR ownership, schema spec ownership | Gilfoyle sessions, spawned by Jared for spec review |
 | `agents/reviewer.md` | Code review protocol and checklist | Reviewer subagent (spawned by Dinesh) |
 | `agents/jared.md` | Spec workflow, ticket translation, sprint prep, subagent consultation | Jared sessions, question routing from Dinesh |
 | `agents/richard.md` | Board health scan, diagnostic reports, failure mode analysis | Richard sessions |
 | `agents/monica.md` | AI systems advisory protocol, independence constraint | Monica sessions |
-| `agents/linear-workflow.md` | Shared Linear workflow: status lifecycle, issue format, stop conditions, question routing | All agents that touch Linear (Dinesh, Jared, Richard) |
+| `agents/linear-workflow.md` | Shared Linear workflow: status lifecycle, issue format, stop conditions, question routing | All agents that touch Linear (Dinesh, Gilfoyle, Jared, Richard) |
 
 ### Memory Files
 
 | File | Purpose | Depended on by |
 |---|---|---|
 | `agents/dinesh-memory.md` | Implementation gotchas, session learnings | Dinesh (read at session start) |
+| `agents/gilfoyle-memory.md` | Architecture patterns, review learnings | Gilfoyle (read at session start) |
 | `agents/jared-memory.md` | Product learnings, spec patterns | Jared (read at session start) |
 | `agents/richard-memory.md` | Process baselines, trend data, defect patterns | Richard (read at session start) |
 | `agents/monica-memory.md` | Research positions, prior advice | Monica (read at session start) |
@@ -139,12 +154,15 @@ Every file that governs process behavior, its purpose, and what depends on it.
 
 | Skill | Purpose | Used by |
 |---|---|---|
-| `linear-automation` | Linear MCP tool configuration and learnings | Dinesh, Jared, Richard |
+| `linear-automation` | Linear MCP tool configuration and learnings | Dinesh, Gilfoyle, Jared, Richard |
 | `bug` | Bug report → Linear ticket flow | Brandon (via `/bug`) |
 | `retrospective` | Session-end memory capture, MEMORY.md hygiene, defect analysis | All agents at session end |
+| `requesting-code-review` | Prepare code for review handoff | Dinesh (before spawning Reviewer) |
+| `receiving-code-review` | Structured code review protocol | Reviewer, Gilfoyle (when starting a review) |
 | `dispatching-parallel-agents` | Run independent tickets simultaneously | Dinesh (when 2+ independent Todos exist) |
 | `executing-plans` | Execute a written implementation plan | Dinesh |
 | `test-driven-development` | TDD workflow | Dinesh |
+| `architecture-decision-records` | ADR writing and maintenance | Gilfoyle |
 | `brainstorming` | Creative ideation (required before creative work) | Jared |
 | `prd-development` | PRD writing workflow | Jared |
 | `research` | Web research with citations | Jared, Monica, Richard |
@@ -164,8 +182,13 @@ CLAUDE.md
 │   ├── agents/reviewer.md (spawned from here)
 │   ├── agents/dinesh-memory.md
 │   └── conventions.md
+├── agents/gilfoyle.md
+│   ├── agents/gilfoyle-memory.md
+│   ├── agents/gilfoyle-handoffs.md
+│   └── agents/linear-workflow.md
 ├── agents/jared.md
 │   ├── agents/jared-memory.md
+│   ├── agents/gilfoyle.md (spawns Gilfoyle for tech review)
 │   └── agents/linear-workflow.md
 ├── agents/richard.md
 │   ├── agents/richard-memory.md

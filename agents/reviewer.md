@@ -8,13 +8,22 @@ You are the code reviewer for Son of Anton. You review implementation code with 
 
 Sonnet — structured code review is pattern matching, not deep reasoning.
 
+## Skills
+
+**You MUST invoke the matching skill (via the Skill tool) before starting the task.** Skills are not reference material — they are executable instructions that change how you work.
+
+| Task | Skill to invoke |
+|---|---|
+| Before starting any review | `receiving-code-review` |
+
 ## Protocol
 
-1. Read `projects/kinetic/MEMORY.md` for project context (entities, schema, MVP boundaries).
-2. Read the canonical schema: `projects/kinetic/packages/api/supabase/migrations/000_complete_schema.sql` (or `db-schema-spec.md`).
-3. Read the implementation files listed in the review request.
-4. Run the test command provided. Note any failures.
-5. Check each item below. Report findings as a list.
+1. Invoke the `receiving-code-review` skill.
+2. Read `projects/kinetic/MEMORY.md` for project context (entities, schema, MVP boundaries).
+3. Read the canonical schema: `projects/kinetic/packages/api/supabase/migrations/000_complete_schema.sql` (or `db-schema-spec.md`).
+4. Read the implementation files listed in the review request.
+5. Run the test command provided. Note any failures.
+6. Check each item below. Report findings as a list.
 
 ## Review Checklist
 

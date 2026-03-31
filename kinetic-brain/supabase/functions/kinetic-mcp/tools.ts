@@ -1,8 +1,8 @@
 /**
  * MCP Tool Implementations — KIN-433.
  *
- * 5 tools: list_kinetic_agents, get_agent_persona, get_active_memory,
- * select_framework, search_knowledge_base.
+ * 6 tools: list_kinetic_agents, get_agent_persona, get_active_memory,
+ * select_framework, search_knowledge_base, assemble_context (KIN-454).
  *
  * All agent-accepting tools use resolveAgent() for access control.
  *
@@ -429,6 +429,258 @@ export async function searchKnowledgeBase(
 }
 
 // ---------------------------------------------------------------------------
+// Tool: assemble_context (KIN-454)
+// ---------------------------------------------------------------------------
+
+/**
+ * Single-call context assembly: persona + memory + framework + KB search.
+ *
+ * Optimization over 4 separate tool calls:
+ * - 1 authenticate() instead of 4 (handled by caller)
+ * - 1 resolveAgent() instead of 4
+ * - 1 embedQuery() instead of 2 (shared by framework + KB)
+ * - Promise.allSettled fan-out for parallel data fetching
+ *
+ * Each layer degrades gracefully — a failure in one never cascades to others.
+ */
+export async function assembleContext(
+  supabase: SupabaseClient,
+  userId: string,
+  slug: string,
+  query: string
+): Promise<string> {
+  // Single agent resolution (eliminates 3 redundant lookups)
+  const agent = await resolveAgent(supabase, userId, slug);
+
+  // --- Persona: already available from resolveAgent ---
+  const persona = agent.instructions
+    ? `# ${agent.name}\n\n${agent.instructions}`
+    : "";
+
+  // --- Single embedding call (eliminates redundant OpenAI request) ---
+  let queryEmbedding: number[] | null = null;
+  let embeddingError: string | null = null;
+  try {
+    queryEmbedding = await embedQuery(supabase, userId, query);
+  } catch (err) {
+    embeddingError = err instanceof Error ? err.message : "Error: Embedding failed";
+  }
+
+  // --- Fan out: memory + framework + KB in parallel via Promise.allSettled ---
+  const [memoryResult, frameworkResult, kbResult] = await Promise.allSettled([
+    // Memory: no embedding needed, independent query
+    fetchActiveMemory(supabase, userId, agent.instanceId),
+    // Framework: requires embedding
+    queryEmbedding
+      ? fetchFramework(supabase, agent.definitionId, queryEmbedding)
+      : Promise.resolve(embeddingError || "No embedding available — skipping framework selection."),
+    // KB: requires embedding
+    queryEmbedding
+      ? fetchKnowledgeBase(supabase, agent.definitionId, queryEmbedding)
+      : Promise.resolve(embeddingError || "No embedding available — skipping knowledge base search."),
+  ]);
+
+  // --- Assemble structured response ---
+  const sections: string[] = [];
+
+  // Persona
+  if (persona) {
+    sections.push("## Persona\n\n" + persona);
+  }
+
+  // Active Memory
+  const memory = memoryResult.status === "fulfilled"
+    ? memoryResult.value
+    : "No active memories";
+  sections.push("## Active Memory\n\n" + memory);
+
+  // Framework
+  const framework = frameworkResult.status === "fulfilled"
+    ? frameworkResult.value
+    : "No matching framework found";
+  sections.push("## Framework\n\n" + framework);
+
+  // Knowledge Base
+  const kb = kbResult.status === "fulfilled"
+    ? kbResult.value
+    : "No relevant knowledge base entries found";
+  sections.push("## Knowledge Base\n\n" + kb);
+
+  return sections.join("\n\n---\n\n");
+}
+
+// ---------------------------------------------------------------------------
+// assemble_context internal helpers (no resolveAgent, no embedQuery)
+// ---------------------------------------------------------------------------
+
+/**
+ * Fetch active memory entries by instance ID.
+ * Extracted from getActiveMemory — skips resolveAgent (already done).
+ */
+async function fetchActiveMemory(
+  supabase: SupabaseClient,
+  userId: string,
+  instanceId: string
+): Promise<string> {
+  const { data: entries, error } = await supabase
+    .from("active_memory_entries")
+    .select("id, content, created_at, updated_at")
+    .eq("agent_instance_id", instanceId)
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
+
+  if (error || !entries || entries.length === 0) {
+    return "No active memories";
+  }
+
+  const lines: string[] = [];
+  for (const entry of entries) {
+    const content = entry.content || "";
+    const created = (entry.created_at || "").slice(0, 10);
+    lines.push(`- **${created}:** ${content}`);
+  }
+  return lines.join("\n");
+}
+
+/**
+ * Select best-matching framework using a pre-computed embedding.
+ * Extracted from selectFramework — skips resolveAgent + embedQuery (already done).
+ */
+async function fetchFramework(
+  supabase: SupabaseClient,
+  definitionId: string,
+  queryEmbedding: number[]
+): Promise<string> {
+  // Check if agent has any frameworks
+  const { data: frameworks } = await supabase
+    .from("frameworks")
+    .select("id")
+    .eq("agent_definition_id", definitionId)
+    .limit(1);
+
+  if (!frameworks || frameworks.length === 0) {
+    return "No framework library configured for this agent. Proceeding without framework guidance.";
+  }
+
+  // Vector search on framework triggers
+  const { data: triggers, error: rpcErr } = await supabase.rpc(
+    "match_framework_triggers",
+    {
+      query_embedding: queryEmbedding,
+      p_agent_id: definitionId,
+      match_count: FRAMEWORK_TRIGGER_TOP_K,
+    }
+  );
+
+  if (rpcErr || !triggers || !Array.isArray(triggers) || triggers.length === 0) {
+    return "No matching framework found";
+  }
+
+  // Group by framework, apply multi-trigger boost
+  const frameworkScores: Map<string, { maxSim: number; count: number }> = new Map();
+  for (const t of triggers) {
+    const fid = t.framework_db_id as string;
+    const sim = Number(t.similarity);
+    const entry = frameworkScores.get(fid) || { maxSim: 0, count: 0 };
+    entry.maxSim = Math.max(entry.maxSim, sim);
+    entry.count += 1;
+    frameworkScores.set(fid, entry);
+  }
+
+  // Rank with boost
+  const ranked: Array<[string, number]> = [];
+  for (const [fid, scores] of frameworkScores) {
+    const boosted = scores.maxSim + (scores.count - 1) * MULTI_TRIGGER_BOOST;
+    ranked.push([fid, boosted]);
+  }
+  ranked.sort((a, b) => b[1] - a[1]);
+
+  // Confidence gate
+  const [topId, topScore] = ranked[0];
+  if (topScore < FRAMEWORK_MIN_SIMILARITY) {
+    return "No matching framework found";
+  }
+
+  // Fetch full framework
+  const { data: fw, error: fwErr } = await supabase
+    .from("frameworks")
+    .select("id, name, description, when_to_apply, principles, steps, example_application")
+    .eq("id", topId)
+    .maybeSingle();
+
+  if (fwErr || !fw) {
+    return "No matching framework found";
+  }
+
+  return assembleFrameworkText(fw);
+}
+
+/**
+ * Search knowledge base using a pre-computed embedding.
+ * Extracted from searchKnowledgeBase — skips resolveAgent + embedQuery (already done).
+ */
+async function fetchKnowledgeBase(
+  supabase: SupabaseClient,
+  definitionId: string,
+  queryEmbedding: number[]
+): Promise<string> {
+  // Check if agent has a knowledge base
+  const { data: kbs } = await supabase
+    .from("knowledge_bases")
+    .select("id")
+    .eq("agent_definition_id", definitionId)
+    .limit(1);
+
+  if (!kbs || kbs.length === 0) {
+    return "No knowledge base configured for this agent. Proceeding without KB context.";
+  }
+
+  // Vector search via match_chunks RPC
+  const { data: chunks, error: rpcErr } = await supabase.rpc("match_chunks", {
+    query_embedding: queryEmbedding,
+    scope_column: "agent_definition_id",
+    scope_value: definitionId,
+    match_count: KB_MATCH_COUNT,
+  });
+
+  if (rpcErr || !chunks || !Array.isArray(chunks) || chunks.length === 0) {
+    return "No relevant knowledge base entries found";
+  }
+
+  // Filter by similarity threshold
+  const filtered = chunks.filter(
+    (c: Record<string, unknown>) => Number(c.similarity) >= KB_SIMILARITY_THRESHOLD
+  );
+
+  if (filtered.length === 0) {
+    return "No relevant knowledge base entries found";
+  }
+
+  // Take top K
+  const topChunks = filtered.slice(0, KB_TOP_K);
+
+  // Format with metadata
+  const lines: string[] = [];
+  for (let i = 0; i < topChunks.length; i++) {
+    const chunk = topChunks[i];
+    const title = (chunk.document_title as string) || "Unknown";
+    const section = chunk.section_path as string;
+    const similarity = Number(chunk.similarity);
+    const text = (chunk.text as string) || "";
+
+    let header = `### [${i + 1}] ${title}`;
+    if (section) header += ` > ${section}`;
+    header += ` (relevance: ${similarity.toFixed(2)})`;
+
+    lines.push(header);
+    lines.push(text);
+    lines.push("");
+  }
+
+  return lines.join("\n");
+}
+
+// ---------------------------------------------------------------------------
 // Tool definitions for MCP registration
 // ---------------------------------------------------------------------------
 
@@ -517,6 +769,25 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
       required: ["agent", "query"],
     },
   },
+  {
+    name: "assemble_context",
+    description:
+      "Assemble all context layers for an agent in a single call: persona, active memory, framework selection, and knowledge base search. More efficient than calling the 4 individual tools separately — use this as the default for full context assembly.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        agent: {
+          type: "string",
+          description: "Agent slug (e.g., 'nate')",
+        },
+        query: {
+          type: "string",
+          description: "The user's question — used for framework matching and KB search",
+        },
+      },
+      required: ["agent", "query"],
+    },
+  },
 ];
 
 /**
@@ -534,10 +805,16 @@ export async function executeTool(
     "get_active_memory",
     "select_framework",
     "search_knowledge_base",
+    "assemble_context",
   ];
   if (agentTools.includes(toolName) && !args.agent) {
     return `Error: Missing required parameter "agent" (the agent slug, e.g. "nate"). ` +
       `Call list_kinetic_agents to see available agents.`;
+  }
+
+  const queryTools = ["select_framework", "search_knowledge_base", "assemble_context"];
+  if (queryTools.includes(toolName) && !args.query) {
+    return `Error: Missing required parameter "query" (the user's question to search for).`;
   }
 
   switch (toolName) {
@@ -556,6 +833,13 @@ export async function executeTool(
       );
     case "search_knowledge_base":
       return await searchKnowledgeBase(
+        supabase,
+        userId,
+        args.agent as string,
+        args.query as string
+      );
+    case "assemble_context":
+      return await assembleContext(
         supabase,
         userId,
         args.agent as string,

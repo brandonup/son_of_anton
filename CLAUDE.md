@@ -17,7 +17,8 @@ These instructions apply whenever you are working in this folder or any subfolde
 - **What this folder is:** The operating system for Son of Anton, an AI agent team that builds GenAI applications
 - **Agents:**
   - **Dinesh** — full-stack implementation (code, tests, shipping)
-  - **Reviewer** — code review (spawned as subagent by Dinesh)
+  - **Gilfoyle** — technical review (pre-implementation spec review, ADR ownership, schema spec ownership)
+  - **Reviewer** — code review (spawned as subagent by Dinesh — not standalone)
   - **Jared** — product (specs, PRDs, sprint planning, question routing)
   - **Richard** — dev process (velocity analysis, bottleneck diagnosis, process audits)
   - **Monica** — AI systems advisor (architecture, eval design, context engineering)
@@ -46,7 +47,9 @@ Product docs may contain callout blocks in this format:
 
 ## Skills
 
-Agents should invoke skills automatically when a task matches a skill's trigger. Each agent file contains a Skills table.
+**Skills are mandatory, not optional.** When a task matches a skill in your Skills table, you MUST invoke it via the Skill tool before starting work. Do not treat skills as passive reference — they are executable instructions that change how you approach the task.
+
+Each agent file contains a Skills table mapping tasks to skills. If a ticket lists recommended skills, invoke those too.
 
 **Skills directories (all agents search both):**
 - `/Users/brandonupchuch/.claude/skills`

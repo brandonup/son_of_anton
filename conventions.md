@@ -1,8 +1,40 @@
 # Son of Anton — Conventions
 
-Last updated: 2026-03-29
+Last updated: 2026-03-30
 
 These apply across all Son of Anton projects.
+
+---
+
+## Environments
+
+| Environment | API | Frontend | Database | Who uses it |
+|---|---|---|---|---|
+| **Development** | `localhost:8000` (`docker build` + `docker run`, `kinetic-api-dev` image) | `localhost:3000` (`pnpm dev`, hot reload) | Dev Supabase (separate instance, same schema) | Brandon, Dinesh |
+| **Production** | Railway (`kinetic-production-b568.up.railway.app`, auto-deploys on `git push`) | Vercel (`kinetic-ashy-beta.vercel.app`, auto-deploys on `git push`) | Prod Supabase | Testers, end users |
+
+**Dev-first rule:** All code changes must be verified against the dev environment before pushing. `git push` auto-deploys to both Railway and Vercel — there is no manual deploy step. Untested pushes go straight to prod.
+
+**Isolation:** Dev and prod Supabase are fully separate — different data, auth, users, agents, and encryption keys. Prod `API_KEY_ENCRYPTION_KEY` cannot decrypt in dev and vice versa.
+
+### Config Files
+
+| File | Env | Committed? |
+|---|---|---|
+| `packages/api/.env.dev` | Dev API credentials | No (gitignored) |
+| `packages/api/.env.dev.template` | Dev API placeholder | Yes |
+| `packages/web/.env.local` | Dev frontend credentials | No (gitignored) |
+| `packages/web/.env.local.template` | Dev frontend placeholder | Yes |
+| Railway env vars (dashboard) | Prod API credentials | N/A |
+| Vercel env vars (dashboard) | Prod frontend credentials | N/A |
+
+### Migration Flow
+
+1. Write the migration
+2. **Dev:** Paste into dev Supabase SQL Editor → test
+3. **Prod:** Paste into prod Supabase SQL Editor (Brandon only, after dev verification)
+
+Full architecture reference: `projects/kinetic/docs/environment-architecture.md`
 
 ---
 
