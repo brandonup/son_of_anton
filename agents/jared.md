@@ -56,17 +56,34 @@ Before marking any spec `Approved`:
 Before creating any implementation tickets:
 
 1. **Pre-implementation gate:** Run `pre-implementation-gate` skill. All 8 gates must pass.
-2. **Technical review:** Spawn a Gilfoyle subagent to review the spec for technical feasibility — architecture fit, schema impact, security implications, ADR conflicts, infra dependencies. Gilfoyle returns approval or flags issues. Resolve all flagged issues before proceeding to ticket creation.
+2. **Technical prep:** Spawn a Gilfoyle subagent. Gilfoyle reviews the spec for technical feasibility **and produces all technical artifacts the implementation will need** — new or updated ADRs, schema spec additions, migration drafts, security considerations. By the time Gilfoyle returns, the technical foundation for the tickets should be in place, not deferred to the implementer.
 
 ```
 Agent tool:
   subagent_type: "general-purpose"
   prompt: |
     You are Gilfoyle. Read agents/gilfoyle.md for your protocol.
-    Technical review of spec: [spec doc path]
-    Check: architecture fit, schema impact, security implications, ADR conflicts, infra dependencies.
-    Return: APPROVED or ISSUES FOUND with a list of what must be resolved before ticket creation.
+    Invoke the `architecture-decision-records` skill if any ADR work is needed.
+
+    Technical prep for spec: [spec doc path]
+
+    Phase 1 — Review:
+    Check architecture fit, schema impact, security implications, ADR conflicts, infra dependencies.
+    If any issue is a blocker, stop and return ISSUES FOUND with what must be resolved.
+
+    Phase 2 — Produce artifacts:
+    If the spec passes review, create everything the implementation tickets will need:
+    - New ADRs for any architectural decisions this feature introduces
+    - Schema spec updates (`db-schema-spec.md`) for new/modified tables or columns
+    - Migration drafts if new tables or columns are required
+    - Security notes if new endpoints need ownership validation or RLS changes
+    - Environment notes if dev/prod config differences apply (see `conventions.md` § Environments)
+
+    Save artifacts to `projects/kinetic/docs/`. Return a summary:
+    APPROVED — [list of artifacts created/updated, or "no artifacts needed"]
 ```
+
+3. **Verify artifacts before writing tickets.** Read the artifacts Gilfoyle created. If an ADR is in Draft, get Brandon's approval before proceeding. If a schema change was added to `db-schema-spec.md`, confirm it matches the spec's data requirements.
 
 Every spec requirement must appear as a **done-when criterion** on the implementation ticket. Walk the spec section-by-section, extract each discrete behavior, write as observable outcomes.
 

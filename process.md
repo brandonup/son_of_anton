@@ -9,7 +9,7 @@ This is the single source of truth for how the Son of Anton system works. Every 
 ## End-to-End Workflow
 
 ```
-Idea → Spec → Tech Review → Tickets → Implementation → Dev Verify → Review → Done
+Idea → Spec → Tech Prep → Tickets → Implementation → Dev Verify → Review → Done
  │       │        │            │            │               │           │        │
 Brandon  Jared  Gilfoyle     Jared       Dinesh          Dinesh     Reviewer  Dinesh
 ```
@@ -25,11 +25,11 @@ Brandon  Jared  Gilfoyle     Jared       Dinesh          Dinesh     Reviewer  Di
 **Output:** Approved spec document in `projects/[project]/docs/`.
 **Governed by:** `agents/jared.md` § Spec Approval Checklist
 
-### Stage 2b: Technical Review
+### Stage 2b: Technical Prep
 **Owner:** Gilfoyle (spawned by Jared as subagent)
-**What happens:** After Brandon approves a spec, Jared spawns Gilfoyle to review it from a technical feasibility perspective — architecture fit, schema impact, security implications, ADR conflicts, infra dependencies. Gilfoyle returns approval or flags issues that must be resolved before ticket creation.
-**Output:** Tech review verdict (approved or issues flagged). ADR updates if needed.
-**Governed by:** `agents/gilfoyle.md`, `agents/jared.md` § Spec → Ticket Translation
+**What happens:** After Brandon approves a spec, Jared spawns Gilfoyle to review it **and produce all technical artifacts** the implementation will need. Gilfoyle checks architecture fit, schema impact, security implications, ADR conflicts, and infra dependencies. If the spec passes review, Gilfoyle creates new ADRs, updates `db-schema-spec.md`, drafts migrations, and documents security/environment requirements. By the time Gilfoyle returns, the technical foundation is in place — Jared can write tickets that reference concrete artifacts instead of deferring technical decisions to the implementer.
+**Output:** Tech review verdict + created artifacts (ADRs, schema spec updates, migration drafts, security/env notes).
+**Governed by:** `agents/gilfoyle.md` § Pre-Implementation Technical Prep, `agents/jared.md` § Spec → Ticket Translation
 
 ### Stage 3: Tickets
 **Owner:** Jared

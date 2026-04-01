@@ -6,6 +6,7 @@ Transferable technical lessons learned across projects. Updated when Brandon say
 
 <!-- Entries format: - [YYYY-MM-DD] [project] Lesson learned -->
 
+- 2026-03-31 — [kinetic] **Use `--project-ref` on `supabase functions deploy` for multi-project setups, never rely on `supabase link` state.** `supabase link` overwrites a local state file — if you deploy after a forgotten re-link, you push to the wrong project. The `--project-ref` flag targets explicitly and is safe for scripting. KIN-457 review.
 - 2026-03-31 — [kinetic] **When a "Spike" ticket's done-when criteria are implementation deliverables, the spike is already done — retitle as implementation and hand to Dinesh.** The design section of the ticket IS the spike output. Don't strip done-when to match the spike label; update the label to match reality. Applied to KIN-454.
 - 2026-03-31 — [kinetic] **Cross-check migration bootstrap files against individual migrations and `000_complete_schema.sql`.** KIN-455 ticket listed 006 and 008 as individual steps, but both were already in 000. Also missed `mcp_check_and_increment_rate_limit` RPC (lives in `supabase/migrations/`, not `migrations/`). The `dev_bootstrap.sql` file was the correct consolidated source — always verify it exists before reviewing a manual migration order.
 - 2026-03-28 — **`mcp__save_comment` and `mcp__save_issue` work fine in sandbox.** Prior memory (2026-03-26) said they were blocked — confirmed incorrect. Post Linear comments and move tickets directly.
