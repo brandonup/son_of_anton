@@ -179,7 +179,9 @@ async function handleMcpMethod(
     }
 
     case "prompts/list": {
+      console.log("[prompts/list] userId:", userId);
       const prompts = await listPrompts(supabase, userId);
+      console.log("[prompts/list] result:", JSON.stringify(prompts));
       return { prompts };
     }
 

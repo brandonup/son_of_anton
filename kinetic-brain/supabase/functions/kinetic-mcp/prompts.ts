@@ -56,7 +56,6 @@ After the tool returns:
 interface AgentInfo {
   name: string;
   slug: string;
-  description: string | null;
   instructions: string | null;
 }
 
@@ -82,7 +81,7 @@ async function fetchVisibleAgents(
   if (ownDefIds.length > 0) {
     const { data } = await supabase
       .from("agent_definitions")
-      .select("name, slug, description, instructions")
+      .select("name, slug, instructions")
       .in("id", ownDefIds);
     ownAgents = (data || []) as AgentInfo[];
   }
@@ -90,7 +89,7 @@ async function fetchVisibleAgents(
   // Public agents
   const { data: publicData } = await supabase
     .from("agent_definitions")
-    .select("name, slug, description, instructions")
+    .select("name, slug, instructions")
     .eq("visibility", "public");
 
   const ownSlugs = new Set(ownAgents.map((a) => a.slug));
@@ -118,8 +117,7 @@ export async function listPrompts(
   return agents.map((a) => ({
     name: a.slug,
     description:
-      a.description ||
-      (a.instructions ? a.instructions.split("\n")[0].slice(0, 200) : `Agent: ${a.name}`),
+      a.instructions ? a.instructions.split("\n")[0].slice(0, 200) : `Agent: ${a.name}`,
   }));
 }
 
@@ -140,8 +138,7 @@ export async function getPrompt(
   }
 
   const description =
-    agent.description ||
-    (agent.instructions ? agent.instructions.split("\n")[0].slice(0, 200) : `Agent: ${agent.name}`);
+    agent.instructions ? agent.instructions.split("\n")[0].slice(0, 200) : `Agent: ${agent.name}`;
 
   return {
     description,

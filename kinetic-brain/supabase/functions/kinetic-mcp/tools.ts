@@ -129,7 +129,7 @@ export async function listKineticAgents(
   if (ownDefIds.length > 0) {
     const { data } = await supabase
       .from("agent_definitions")
-      .select("name, slug, description")
+      .select("name, slug, instructions")
       .in("id", ownDefIds);
     ownAgents = data || [];
   }
@@ -137,7 +137,7 @@ export async function listKineticAgents(
   // Query public agents (not already in own list)
   const { data: publicAgents } = await supabase
     .from("agent_definitions")
-    .select("name, slug, description")
+    .select("name, slug, instructions")
     .eq("visibility", "public");
 
   const ownSlugs = new Set(ownAgents.map((a) => a.slug));
@@ -152,14 +152,14 @@ export async function listKineticAgents(
   const lines: string[] = ["# Your Kinetic Agents\n"];
 
   for (const a of ownAgents) {
-    const desc = a.description || "No description";
+    const desc = a.instructions ? a.instructions.split("\n")[0].slice(0, 200) : "No description";
     lines.push(`- **${a.name}** (\`${a.slug}\`) — ${desc} [own]`);
   }
 
   if (publicOnly.length > 0) {
     lines.push("\n# Public Agents\n");
     for (const a of publicOnly) {
-      const desc = a.description || "No description";
+      const desc = a.instructions ? a.instructions.split("\n")[0].slice(0, 200) : "No description";
       lines.push(`- **${a.name}** (\`${a.slug}\`) — ${desc} [public]`);
     }
   }
@@ -690,6 +690,54 @@ export interface ToolDefinition {
   inputSchema: Record<string, unknown>;
 }
 
+/**
+ * Debug: returns prompts/list output for troubleshooting.
+ * Remove after KIN-454 verification.
+ */
+export async function debugPromptsList(
+  supabase: SupabaseClient,
+  userId: string
+): Promise<string> {
+  // Replicate fetchVisibleAgents logic
+  const { data: ownInstances, error: instErr } = await supabase
+    .from("agent_instances")
+    .select("agent_definition_id")
+    .eq("user_id", userId);
+
+  const ownDefIds = (ownInstances || []).map(
+    (i: { agent_definition_id: string }) => i.agent_definition_id
+  );
+
+  let ownAgents: Array<Record<string, unknown>> = [];
+  let ownErr = null;
+  if (ownDefIds.length > 0) {
+    const { data, error } = await supabase
+      .from("agent_definitions")
+      .select("name, slug, instructions")
+      .in("id", ownDefIds);
+    ownAgents = data || [];
+    ownErr = error;
+  }
+
+  const { data: publicData, error: pubErr } = await supabase
+    .from("agent_definitions")
+    .select("name, slug, instructions")
+    .eq("visibility", "public");
+
+  return JSON.stringify({
+    userId,
+    instancesCount: (ownInstances || []).length,
+    instancesError: instErr,
+    ownDefIds,
+    ownAgentsCount: ownAgents.length,
+    ownAgentsError: ownErr,
+    ownAgents: ownAgents.map(a => ({ name: a.name, slug: a.slug })),
+    publicCount: (publicData || []).length,
+    publicError: pubErr,
+    publicAgents: (publicData || []).map((a: Record<string, unknown>) => ({ name: a.name, slug: a.slug })),
+  }, null, 2);
+}
+
 export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     name: "list_kinetic_agents",
@@ -770,6 +818,15 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     },
   },
   {
+    name: "debug_prompts_list",
+    description: "DEBUG: Returns what prompts/list would return. Remove after KIN-454.",
+    inputSchema: {
+      type: "object",
+      properties: {},
+      required: [],
+    },
+  },
+  {
     name: "assemble_context",
     description:
       "Assemble all context layers for an agent in a single call: persona, active memory, framework selection, and knowledge base search. More efficient than calling the 4 individual tools separately — use this as the default for full context assembly.",
@@ -838,6 +895,8 @@ export async function executeTool(
         args.agent as string,
         args.query as string
       );
+    case "debug_prompts_list":
+      return await debugPromptsList(supabase, userId);
     case "assemble_context":
       return await assembleContext(
         supabase,
